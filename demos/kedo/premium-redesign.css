@@ -1,0 +1,500 @@
+/*
+ * KEDO — final visual layer
+ * This file is deliberately loaded last.  It unifies legacy screens without
+ * changing their DOM contracts, data attributes, or event handlers.
+ */
+:root{
+  --kedo-ink:#14283a;
+  --kedo-ink-soft:#345066;
+  --kedo-canvas:#edf2f5;
+  --kedo-paper:#ffffff;
+  --kedo-mist:#f6f8fa;
+  --kedo-line:#dbe4ea;
+  --kedo-line-strong:#c7d5df;
+  --kedo-muted:#667d8f;
+  --kedo-blue:#176b9d;
+  --kedo-blue-deep:#0f456a;
+  --kedo-blue-wash:#eaf3f8;
+  --kedo-green:#267252;
+  --kedo-red:#b34d48;
+  --kedo-shadow-sm:0 1px 2px rgba(19,47,66,.035),0 7px 20px rgba(19,47,66,.045);
+  --kedo-shadow-md:0 16px 42px rgba(20,52,72,.10);
+  --kedo-radius-lg:16px;
+  --kedo-radius-md:11px;
+  --kedo-radius-sm:8px;
+}
+
+html{scroll-behavior:smooth;background:var(--kedo-canvas)}
+body{
+  min-height:100dvh;
+  background:
+    radial-gradient(58rem 29rem at -10% -8%,rgba(92,153,184,.11),transparent 66%),
+    radial-gradient(42rem 22rem at 110% 13%,rgba(52,105,135,.07),transparent 70%),
+    var(--kedo-canvas)!important;
+  color:var(--kedo-ink)!important;
+  font-family:"Segoe UI Variable","Segoe UI",Manrope,system-ui,sans-serif!important;
+  font-size:14px;
+  font-weight:450;
+  line-height:1.48;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body::before{
+  content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;opacity:.34;
+  background-image:radial-gradient(rgba(42,76,96,.17) .55px,transparent .7px);
+  background-size:17px 17px;
+  mask-image:linear-gradient(180deg,#000,transparent 82%);
+}
+::selection{background:#cfe6f2;color:var(--kedo-ink)}
+.kedo-skip-link{position:fixed;z-index:99999;left:12px;top:-55px;padding:9px 12px;border-radius:8px;background:var(--kedo-blue);color:#fff;text-decoration:none;font-size:12px;font-weight:700;transition:top .16s ease}
+.kedo-skip-link:focus{top:12px}
+button,input,select,textarea{font:inherit}
+button{letter-spacing:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid rgba(23,107,157,.26)!important;
+  outline-offset:2px!important;
+}
+
+/* Shell: dark header, quiet navigation, content with breathing room. */
+.top{
+  min-height:68px!important;padding:0 clamp(16px,3vw,38px)!important;
+  background:rgba(15,37,54,.96)!important;
+  border-bottom:1px solid rgba(211,231,242,.15)!important;
+  box-shadow:0 8px 30px rgba(11,30,45,.13)!important;
+  backdrop-filter:blur(14px);
+}
+.top-brand{display:flex;align-items:center;min-width:0}
+.top-brand img{filter:drop-shadow(0 2px 10px rgba(0,0,0,.16))}
+.body{width:min(1400px,calc(100% - 48px))!important;padding:24px 0 46px!important}
+.nav{
+  position:relative;display:flex;align-items:center;gap:2px!important;
+  margin:0 0 22px!important;padding:5px!important;
+  border:1px solid rgba(197,211,220,.82)!important;border-radius:var(--kedo-radius-lg)!important;
+  background:rgba(255,255,255,.79)!important;box-shadow:0 10px 28px rgba(34,66,86,.055)!important;
+  backdrop-filter:blur(15px);
+}
+.nav button{
+  min-height:38px!important;padding:8px 12px!important;border-radius:9px!important;
+  color:#4e6475!important;font-size:12px!important;font-weight:650!important;
+  transition:background-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease!important;
+}
+.nav button:hover{background:#edf4f8!important;color:var(--kedo-blue-deep)!important;transform:translateY(-1px)!important}
+.nav button.active{background:var(--kedo-blue)!important;color:#fff!important;box-shadow:0 5px 13px rgba(23,107,157,.22)!important}
+.nav button:active,.primary:active,.secondary:active,.danger:active,.danger-outline:active{transform:translateY(1px) scale(.985)!important}
+.nav button[data-page="knowledge"]{margin-left:8px!important;padding-left:16px!important;border-left:1px solid var(--kedo-line)!important}
+.nav-admin-separator{height:22px!important;background:var(--kedo-line-strong)!important}
+
+/* A disciplined type scale rather than the old mix of widget-sized labels. */
+.page-title,h1.page-title{
+  color:var(--kedo-ink)!important;font-size:clamp(27px,2.35vw,38px)!important;
+  font-weight:740!important;line-height:1.08!important;letter-spacing:-.045em!important;
+  text-wrap:balance;
+}
+.card h2,.home-section-head h2,.task-section-head h2,.knowledge-hero h2{
+  color:var(--kedo-ink)!important;letter-spacing:-.025em!important;font-weight:700!important;
+}
+.eyebrow,.task-kicker,.help40-eyebrow,.help35-eyebrow{
+  color:#72899a!important;font-size:10px!important;font-weight:720!important;
+  letter-spacing:.105em!important;line-height:1.2!important;
+}
+.muted{color:var(--kedo-muted)!important;line-height:1.55}
+p{max-width:72ch;text-wrap:pretty}
+
+/* Surfaces use borders for structure and shadows only for layers. */
+.card,.stat,.admin-stat,.inbox-card,.home-metric,.tasks-summary-card,.profile-card,.profile-identity,.branch-card{
+  background:rgba(255,255,255,.94)!important;border:1px solid var(--kedo-line)!important;
+  border-radius:var(--kedo-radius-lg)!important;box-shadow:var(--kedo-shadow-sm)!important;
+}
+.card{padding:clamp(16px,2vw,24px)!important;margin-bottom:16px!important}
+.card:hover{border-color:#cbd9e2}
+.document,.inbox-item,.home-action-row,.task-card,.knowledge-item,.admin-employees-card .employee-row{
+  border-color:var(--kedo-line)!important;
+}
+.table-wrap{border:1px solid var(--kedo-line)!important;border-radius:var(--kedo-radius-md)!important;background:#fff}
+.table-wrap th{background:#f5f8fa!important;color:#607789!important;font-size:11px!important;font-weight:720!important;letter-spacing:.03em}
+.table-wrap tr:hover td{background:#f8fbfc}
+
+/* Controls: reserved color for intent; neutral actions no longer compete. */
+.primary,.secondary,.danger,.danger-outline{
+  min-height:38px!important;padding:8px 13px!important;border-radius:var(--kedo-radius-sm)!important;
+  font-size:12px!important;font-weight:650!important;transition:transform .17s ease,box-shadow .17s ease,background-color .17s ease,border-color .17s ease,color .17s ease!important;
+}
+.primary{background:var(--kedo-blue)!important;border-color:var(--kedo-blue)!important;box-shadow:0 4px 11px rgba(23,107,157,.16)!important}
+.primary:hover{background:var(--kedo-blue-deep)!important;border-color:var(--kedo-blue-deep)!important;box-shadow:0 7px 18px rgba(23,107,157,.23)!important;transform:translateY(-1px)!important}
+.secondary{background:#fff!important;border-color:var(--kedo-line-strong)!important;color:#365267!important;box-shadow:0 1px 1px rgba(16,50,71,.02)!important}
+.secondary:hover{background:var(--kedo-mist)!important;border-color:#9fb9ca!important;color:var(--kedo-blue-deep)!important;transform:translateY(-1px)!important}
+.danger{background:var(--kedo-red)!important;border-color:var(--kedo-red)!important}
+.danger-outline{border-color:#dcaaa6!important;color:#a93e3b!important;background:#fffafa!important}
+.danger-outline:hover{background:#fff1f0!important}
+
+input:not([type="checkbox"]):not([type="radio"]),select,textarea{
+  border:1px solid var(--kedo-line-strong)!important;border-radius:var(--kedo-radius-sm)!important;
+  background:rgba(255,255,255,.96)!important;color:var(--kedo-ink)!important;
+  transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease!important;
+}
+input:not([type="checkbox"]):not([type="radio"]):hover,select:hover,textarea:hover{border-color:#adc2d0!important}
+input:not([type="checkbox"]):not([type="radio"]):focus,select:focus,textarea:focus{
+  border-color:#5d9bc0!important;box-shadow:0 0 0 3px rgba(23,107,157,.11)!important;background:#fff!important;
+}
+
+/* Header controls and custom SVG icon system. */
+.top .secondary,.user-menu-button,.global-search-button,.notification-button{
+  border-color:rgba(219,235,245,.20)!important;background:rgba(255,255,255,.07)!important;color:#f5fbff!important;box-shadow:none!important;
+}
+.top .secondary:hover,.user-menu-button:hover,.global-search-button:hover,.notification-button:hover{background:rgba(255,255,255,.14)!important;color:#fff!important;transform:translateY(-1px)!important}
+.premium-icon{width:1.12em;height:1.12em;display:inline-block;flex:0 0 auto;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.premium-icon--lg{width:1.45em;height:1.45em}.premium-icon--xl{width:2.1em;height:2.1em}
+.kedo-header-icon{width:18px;height:18px;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.notification-button{display:inline-grid!important;place-items:center;position:relative!important;color:#dbeefa!important}
+.notification-badge{font-family:ui-monospace,SFMono-Regular,Consolas,monospace!important;box-shadow:0 2px 7px rgba(54,20,22,.24)!important}
+
+/* Page-specific anchors: dashboard, tasks, knowledge, reports and documents. */
+.home-welcome,.tasks-hero,.profile-hero,.knowledge-hero,.branch-hero{align-items:flex-end!important;margin-bottom:20px!important}
+.home-welcome{padding:8px 2px 0}.home-welcome .page-title{margin-bottom:7px!important}
+.home-welcome .page-title .premium-icon{margin-right:7px;color:var(--kedo-blue);vertical-align:-.08em}
+.home-focus.card{overflow:hidden;position:relative}
+.home-focus.card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--kedo-blue)}
+.home-action-row{border:1px solid transparent!important;background:transparent!important;box-shadow:none!important;border-radius:10px!important}
+.home-action-row:hover{border-color:#d6e4ec!important;background:#f7fafc!important;transform:none!important}
+.home-action-icon,.search-result-icon,.command-icon,.knowledge-item-icon,.knowledge-empty-icon{
+  display:grid!important;place-items:center!important;color:var(--kedo-blue)!important;
+  background:var(--kedo-blue-wash)!important;border-radius:9px!important;
+}
+.home-metric,.tasks-summary-card{min-height:104px!important;padding:17px!important;text-align:left!important;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease!important}
+.home-metric:hover,.tasks-summary-card:hover{border-color:#b7cfdd!important;box-shadow:0 11px 27px rgba(26,67,92,.10)!important;transform:translateY(-2px)!important}
+.home-metric strong,.tasks-summary-card strong,.branch-stat strong,.admin-stat b{font-family:"SFMono-Regular",Consolas,monospace!important;letter-spacing:-.06em!important}
+.task-card,.knowledge-item{border-radius:var(--kedo-radius-md)!important;background:#fff!important;box-shadow:none!important}
+.task-card:hover,.knowledge-item:hover{border-color:#b8d0de!important;box-shadow:0 10px 26px rgba(28,65,89,.075)!important}
+.task-doc,.task-note-reminder{display:flex;align-items:center;gap:6px}
+.task-doc .premium-icon,.task-note-reminder .premium-icon{color:var(--kedo-blue)}
+.knowledge-hero{position:relative;overflow:hidden;border:1px solid var(--kedo-line)!important;border-radius:var(--kedo-radius-lg)!important;background:#fff!important;box-shadow:var(--kedo-shadow-sm)!important}
+.knowledge-hero::after{content:"";position:absolute;width:240px;height:240px;right:-100px;top:-125px;border:1px solid #cbe0ea;border-radius:50%;box-shadow:0 0 0 27px rgba(234,243,248,.7),0 0 0 54px rgba(234,243,248,.35);pointer-events:none}
+.knowledge-item-icon .premium-icon,.knowledge-empty-icon .premium-icon{width:20px;height:20px}
+.report-workbench,.report-page,.reports-page{color:var(--kedo-ink)}
+.report-editor-head,.reports-hero,.report-card{border-color:var(--kedo-line)!important;box-shadow:var(--kedo-shadow-sm)!important}
+.report-toolbar,.sheetbar{border-color:var(--kedo-line)!important;background:#f7f9fa!important}
+.report-grid-wrap{border-color:var(--kedo-line)!important}
+.document-detail-head,.document-detail-topbar{border-color:var(--kedo-line)!important}
+
+/* Empty, error and modal states feel intentional rather than accidental. */
+.empty,.knowledge-empty,.inbox-empty{color:var(--kedo-muted)!important}
+.knowledge-empty,.kedo-preview-error{border:1px dashed #c7d6df!important;border-radius:var(--kedo-radius-md)!important;background:#f9fbfc!important}
+.kedo-preview-error-icon{color:var(--kedo-blue)!important;background:var(--kedo-blue-wash)!important;border-radius:12px!important}
+.kedo-dialog,.admin-edit-modal,.task-detail-modal,.folder-report-modal{border-color:var(--kedo-line)!important;box-shadow:var(--kedo-shadow-md)!important}
+.kedo-dialog-overlay,.admin-edit-overlay,.task-detail-overlay{backdrop-filter:blur(8px)!important}
+
+/* Reduced motion preserves all controls for users who request it. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+@media(max-width:900px){
+  .body{width:min(100% - 28px,1400px)!important;padding-top:16px!important}
+  .nav{overflow-x:auto!important;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+  .nav button[data-page="knowledge"]{margin-left:0!important;padding-left:12px!important;border-left:0!important}
+}
+@media(max-width:620px){
+  .top{min-height:60px!important;padding:0 13px!important}.body{width:calc(100% - 20px)!important}
+  .nav{margin-bottom:16px!important;border-radius:12px!important}.nav button{font-size:11px!important}
+  .page-title,h1.page-title{font-size:28px!important}.card{padding:15px!important;border-radius:13px!important}
+  .home-metric,.tasks-summary-card{min-height:92px!important}
+}
+
+
+
+/* 6.6 — final SPA consistency pass. Kept here rather than inline in the
+   document so every existing route inherits the same visual rules. */
+:root{--kedo-focus:0 0 0 3px rgba(23,107,157,.24);--kedo-control-height:40px}
+.login-brand img{width:min(270px,82vw)!important;height:auto!important;max-height:118px!important;object-fit:contain!important;border-radius:10px!important}
+.top-brand{display:inline-flex;align-items:center;gap:10px;min-width:0}.top-brand b{white-space:nowrap}
+.top{position:sticky;top:0;z-index:40}
+.nav button,.primary,.secondary,.danger,.danger-outline{min-height:var(--kedo-control-height)!important}
+.nav button:focus-visible,.primary:focus-visible,.secondary:focus-visible,.danger:focus-visible,.danger-outline:focus-visible{outline:none!important;box-shadow:var(--kedo-focus)!important}
+.home-action-row,.inbox-item,.document,.task-card,.knowledge-item{transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease!important}
+.home-action-row:focus-visible,.inbox-item:focus-visible,.document:focus-visible,.task-card:focus-visible,.knowledge-item:focus-visible{outline:none!important;box-shadow:var(--kedo-focus)!important}
+.home-action-row:hover,.inbox-item:hover,.document:hover,.task-card:hover,.knowledge-item:hover{border-color:#b9d2df!important}
+.table-wrap{scrollbar-color:#aac2d0 transparent;scrollbar-width:thin}
+.table-wrap::-webkit-scrollbar{height:9px;width:9px}.table-wrap::-webkit-scrollbar-thumb{border:2px solid transparent;border-radius:99px;background:#a9c0ce;background-clip:padding-box}
+.err{border-radius:var(--kedo-radius-sm);line-height:1.5}.empty{padding-block:22px}
+.kedo-page-loading{display:grid;gap:13px;max-width:940px;padding:22px 0}.kedo-loading-title,.kedo-loading-line,.kedo-loading-grid i{display:block;border-radius:7px;background:linear-gradient(90deg,#e6eef2 25%,#f7fafb 45%,#e6eef2 65%);background-size:240% 100%;animation:kedoSkeleton 1.25s ease-in-out infinite}.kedo-loading-title{width:min(42%,300px);height:30px}.kedo-loading-line{height:13px}.kedo-loading-line-wide{width:min(72%,560px)}.kedo-loading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:5px}.kedo-loading-grid i{height:118px}.kedo-loading-label{color:var(--kedo-muted);font-size:12px}@keyframes kedoSkeleton{0%{background-position:100% 0}100%{background-position:0 0}}
+@media(max-width:700px){.top{position:relative}.home-welcome,.profile-hero,.knowledge-hero,.tasks-hero{align-items:flex-start!important}.nav{scroll-padding-inline:8px}.table-wrap{margin-inline:-2px}}
+@media(max-width:700px){.kedo-loading-grid{grid-template-columns:1fr}.kedo-loading-grid i{height:76px}}
+
+/*
+ * KEDO 2.0 — product UI consolidation
+ *
+ * Legacy views own their markup and behaviour.  These rules intentionally
+ * sit last: they make the application read as one calm work tool without
+ * replacing a single DOM contract or interaction.
+ */
+:root{
+  --kedo-ink:#172b3a;
+  --kedo-ink-soft:#466174;
+  --kedo-canvas:#f2f6f8;
+  --kedo-paper:#ffffff;
+  --kedo-mist:#f8fafb;
+  --kedo-line:#d8e3e9;
+  --kedo-line-strong:#b9cbd6;
+  --kedo-muted:#6d8392;
+  --kedo-blue:#176b9d;
+  --kedo-blue-deep:#105177;
+  --kedo-blue-wash:#e8f2f7;
+  --kedo-radius-lg:12px;
+  --kedo-radius-md:10px;
+  --kedo-radius-sm:8px;
+  --kedo-shadow-sm:0 1px 2px rgba(20,43,58,.035),0 6px 18px rgba(20,43,58,.045);
+  --kedo-shadow-md:0 18px 44px rgba(20,43,58,.16);
+}
+
+html{background:var(--kedo-canvas)}
+body{
+  background:var(--kedo-canvas)!important;
+  color:var(--kedo-ink)!important;
+  font-family:"Segoe UI Variable","Segoe UI",Inter,system-ui,sans-serif!important;
+  font-size:14px!important;
+  letter-spacing:0!important;
+}
+body::before{display:none!important}
+button,input,select,textarea{font-family:inherit!important}
+p{max-width:76ch}
+
+/* The shell is deliberately flat and stable: a work application, not a landing page. */
+.top{
+  min-height:64px!important;
+  background:#112e43!important;
+  border-bottom:1px solid #0b2334!important;
+  box-shadow:0 2px 10px rgba(8,29,43,.12)!important;
+  backdrop-filter:none!important;
+}
+.top-brand img{filter:none!important}
+.body{width:min(1440px,calc(100% - 52px))!important;padding:22px 0 52px!important}
+.nav{
+  gap:3px!important;
+  margin:0 0 26px!important;
+  padding:0!important;
+  border:0!important;
+  border-bottom:1px solid var(--kedo-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.nav button{
+  min-height:40px!important;
+  padding:10px 13px!important;
+  border-radius:8px 8px 0 0!important;
+  color:#526b7c!important;
+  font-size:12px!important;
+  font-weight:650!important;
+  transform:none!important;
+}
+.nav button:hover{background:#e6f0f5!important;color:var(--kedo-blue-deep)!important;transform:none!important}
+.nav button.active{
+  position:relative;
+  background:transparent!important;
+  color:var(--kedo-blue-deep)!important;
+  box-shadow:none!important;
+}
+.nav button.active::after{content:"";position:absolute;right:10px;bottom:-1px;left:10px;height:3px;border-radius:3px 3px 0 0;background:var(--kedo-blue)}
+.nav button[data-page="knowledge"]{margin-left:10px!important;padding-left:15px!important;border-left:1px solid var(--kedo-line)!important}
+.nav-admin-separator{height:20px!important;margin:0 3px 0 auto!important;background:var(--kedo-line)!important}
+
+/* A compact type scale keeps pages scannable with no visual noise. */
+.page-title,h1.page-title{
+  margin:0!important;
+  color:var(--kedo-ink)!important;
+  font-size:clamp(26px,2.05vw,34px)!important;
+  font-weight:720!important;
+  line-height:1.14!important;
+  letter-spacing:-.032em!important;
+  text-wrap:balance;
+}
+.card h2,.home-section-head h2,.task-section-head h2,.knowledge-hero h2,.inbox-section h2{
+  font-size:18px!important;
+  line-height:1.2!important;
+  letter-spacing:-.018em!important;
+}
+.eyebrow,.task-kicker,.help40-eyebrow,.help35-eyebrow{
+  color:#71899a!important;
+  font-size:10px!important;
+  font-weight:750!important;
+  letter-spacing:.09em!important;
+}
+.muted{color:var(--kedo-muted)!important}
+
+/* One surface language for every registry, card and editor panel. */
+.card,.stat,.admin-stat,.inbox-card,.home-metric,.tasks-summary-card,.profile-card,.profile-identity,.branch-card,
+.reports-hero,.report-card,.report-editor-head,.document-detail-head,.document-detail-card,.knowledge-hero{
+  border:1px solid var(--kedo-line)!important;
+  border-radius:var(--kedo-radius-lg)!important;
+  background:var(--kedo-paper)!important;
+  box-shadow:var(--kedo-shadow-sm)!important;
+}
+.card{padding:20px!important;margin-bottom:14px!important}
+.card:hover{border-color:var(--kedo-line)!important}
+.home-focus.card{border-left:3px solid var(--kedo-blue)!important}
+.home-focus.card::before{display:none!important}
+.table-wrap,.report-grid-wrap,.report-table-wrap{
+  overflow:auto;
+  border:1px solid var(--kedo-line)!important;
+  border-radius:var(--kedo-radius-md)!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.table-wrap table{border-collapse:separate!important;border-spacing:0!important}
+.table-wrap th,.report-grid th{
+  position:sticky;top:0;z-index:1;
+  background:#f3f7f9!important;
+  color:#60788a!important;
+  font-size:10px!important;
+  font-weight:750!important;
+  letter-spacing:.045em!important;
+}
+.table-wrap td{border-color:#e5edf1!important;color:#344e60!important}
+.table-wrap tr:hover td{background:#f6fafc!important}
+
+/* Controls reserve blue for the action that advances work. */
+.primary,.secondary,.danger,.danger-outline{
+  min-height:36px!important;
+  padding:7px 12px!important;
+  border-radius:8px!important;
+  font-size:12px!important;
+  font-weight:650!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+.primary{background:var(--kedo-blue)!important;border-color:var(--kedo-blue)!important;color:#fff!important}
+.primary:hover{background:var(--kedo-blue-deep)!important;border-color:var(--kedo-blue-deep)!important;box-shadow:0 3px 9px rgba(16,81,119,.2)!important;transform:none!important}
+.secondary{background:#fff!important;border-color:var(--kedo-line-strong)!important;color:#39576a!important}
+.secondary:hover{background:#f2f7f9!important;border-color:#91acbc!important;color:#173f58!important;transform:none!important}
+.danger{background:#b24b47!important;border-color:#b24b47!important}.danger-outline{background:#fff!important;border-color:#d8a7a4!important;color:#a03e3a!important}
+.danger-outline:hover{background:#fff6f5!important}
+.primary:active,.secondary:active,.danger:active,.danger-outline:active{transform:translateY(1px)!important}
+
+input:not([type="checkbox"]):not([type="radio"]),select,textarea{
+  min-height:36px;
+  border-color:var(--kedo-line-strong)!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:var(--kedo-ink)!important;
+  box-shadow:none!important;
+}
+input:not([type="checkbox"]):not([type="radio"]):focus,select:focus,textarea:focus{
+  border-color:#4d8caf!important;
+  box-shadow:0 0 0 3px rgba(23,107,157,.12)!important;
+}
+
+/* Main working pages: hierarchy first, decoration second. */
+.home-welcome,.tasks-hero,.profile-hero,.knowledge-hero,.branch-hero,.inbox-hero{margin-bottom:18px!important}
+.home-welcome{padding:4px 0 0!important}.home-welcome .page-title{margin-top:3px!important}
+#homeCustomizeButton{border:1px solid var(--kedo-line-strong)!important;border-radius:8px!important;background:#fff!important;color:#426276!important;box-shadow:none!important}
+#homeCustomizeButton:hover{border-color:#8facbd!important;background:#f4f8fa!important}
+.home-action-row,.inbox-item,.inbox-draft{
+  min-height:58px!important;
+  border:1px solid transparent!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.home-action-row:hover,.inbox-item:hover,.inbox-draft:hover{border-color:#d8e5eb!important;background:#f5f9fb!important;transform:none!important}
+.home-action-icon,.inbox-item-icon,.search-result-icon,.command-icon,.knowledge-item-icon,.knowledge-empty-icon{
+  border-radius:8px!important;
+  background:var(--kedo-blue-wash)!important;
+  color:var(--kedo-blue-deep)!important;
+}
+.home-metrics{gap:10px!important}
+.home-metric,.tasks-summary-card{
+  min-height:96px!important;
+  padding:15px!important;
+  text-align:left!important;
+  box-shadow:none!important;
+  transition:border-color .15s ease,background-color .15s ease!important;
+}
+.home-metric:hover,.tasks-summary-card:hover{border-color:#a8c2d1!important;background:#f8fbfc!important;box-shadow:none!important;transform:none!important}
+.home-metric strong,.tasks-summary-card strong,.branch-stat strong,.admin-stat b{font-family:inherit!important;letter-spacing:-.04em!important}
+.home-metric-workforce{border-color:var(--kedo-line)!important;background:#fff!important}.home-metric-workforce strong{color:var(--kedo-ink)!important}
+.home-quick-grid button{border-radius:9px!important;border-color:var(--kedo-line)!important;background:#fff!important;box-shadow:none!important}
+.home-quick-grid button:hover{border-color:#9dbaca!important;background:#f5f9fb!important;transform:none!important}
+
+/* Dense content lists remain readable and predictable. */
+.task-card,.knowledge-item,.document-row,.document-card,.file-copy,.branch-ticket-row,.access-resource,.admin-ticket-row{
+  border-color:var(--kedo-line)!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.task-card:hover,.knowledge-item:hover,.document-row:hover,.document-card:hover,.access-resource:hover{border-color:#a9c2d0!important;background:#f8fbfc!important;box-shadow:none!important;transform:none!important}
+.knowledge-hero{position:relative;overflow:hidden}.knowledge-hero::after{display:none!important}
+.knowledge-item{margin-bottom:10px!important}
+.task-note-card{border-radius:10px!important;box-shadow:none!important}
+.task-note-tools button,.task-note-done{border-radius:7px!important}
+
+/* Spreadsheet/report controls need restraint so the table stays the focus. */
+.report-workbench,.report-page,.reports-page{color:var(--kedo-ink)!important}
+.reports-hero,.report-editor-head{padding:18px!important}
+.report-toolbar,.sheetbar{
+  border-color:var(--kedo-line)!important;
+  border-radius:9px!important;
+  background:#f5f8fa!important;
+  box-shadow:none!important;
+}
+.report-toolbar button,.sheetbar button,.report-actions button{border-radius:7px!important;box-shadow:none!important}
+.report-grid-wrap{border-radius:9px!important}.report-grid td,.report-grid th{border-color:#dde7ec!important}
+.report-grid td:focus-within{outline:2px solid rgba(23,107,157,.36);outline-offset:-2px}
+
+/* Document detail now reads like a single dossier instead of stacked widgets. */
+.document-detail-active>.document-detail-head{
+  padding:20px 22px!important;
+  border-color:var(--kedo-line)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:var(--kedo-shadow-sm)!important;
+}
+.document-detail-active>.document-detail-card{border-color:var(--kedo-line)!important;border-radius:12px!important;box-shadow:var(--kedo-shadow-sm)!important}
+.document-detail-active>.document-actions-card{background:#f7fafb!important}
+.document-detail-active>.document-detail-card:first-of-type .detail-grid>div{border-color:#e0e9ee!important;border-radius:8px!important;background:#f7fafb!important}
+.file-copy{background:#f9fbfc!important}.file-copy-actions button{border-radius:7px!important}
+
+/* Overlay and empty states use the same restrained language. */
+.kedo-dialog,.admin-edit-modal,.task-detail-modal,.folder-report-modal,.branch-hierarchy-modal{
+  border:1px solid var(--kedo-line)!important;
+  border-radius:12px!important;
+  box-shadow:var(--kedo-shadow-md)!important;
+}
+.kedo-dialog-overlay,.admin-edit-overlay,.task-detail-overlay{background:rgba(13,37,53,.46)!important;backdrop-filter:none!important}
+.empty,.knowledge-empty,.inbox-empty,.task-notes-empty{border-color:#cbd9e1!important;background:#f8fbfc!important;color:var(--kedo-muted)!important}
+.knowledge-empty,.kedo-preview-error{border-radius:10px!important}
+
+/* The help screen uses the portal's icon set; content emojis stay in chats only. */
+.help40-guide-icon .premium-icon,.help40-faq-icon .premium-icon{width:16px!important;height:16px!important;vertical-align:0!important}
+.help40-hero-tip>span,.help40-point-grid>div>span{display:none!important}
+.help40-hero-tip{padding-top:22px!important}.help40-point-grid>div{padding-top:14px!important}
+
+@media(max-width:900px){
+  .body{width:min(100% - 30px,1440px)!important;padding-top:16px!important}
+  .nav{overflow-x:auto!important;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+  .nav button[data-page="knowledge"]{margin-left:0!important;padding-left:13px!important;border-left:0!important}
+}
+@media(max-width:620px){
+  .top{min-height:58px!important;padding:0 12px!important}
+  .body{width:calc(100% - 20px)!important;padding-bottom:30px!important}
+  .nav{margin-bottom:18px!important}.nav button{min-height:38px!important;padding:9px 11px!important;font-size:11px!important}
+  .page-title,h1.page-title{font-size:27px!important}.card{padding:15px!important}
+  .home-metrics{gap:8px!important}.home-metric,.tasks-summary-card{min-height:88px!important;padding:13px!important}
+}
+
+/* Branch overlays and controls: final shared overrides without inline CSS. */
+.branch-hierarchy-modal-overlay{position:fixed!important;inset:0!important;z-index:31000!important;display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;width:100vw!important;height:100vh!important;padding:20px!important;overflow:hidden!important;background:rgba(16,38,55,.52)!important;backdrop-filter:blur(5px)!important;overscroll-behavior:contain}
+.branch-hierarchy-modal{position:relative!important;flex:0 1 760px!important;width:min(760px,calc(100vw - 40px))!important;max-width:760px!important;max-height:calc(100vh - 40px)!important;min-height:0!important;margin:0!important;overflow:hidden!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important}
+.branch-hierarchy-modal-list{flex:1 1 auto!important;min-height:120px!important;overflow-y:auto!important;overscroll-behavior:contain}
+.branch-employee-controls{grid-template-columns:minmax(130px,1fr) minmax(150px,1fr) auto auto auto}
+.branch-dep-head-meta{color:#39718a!important;font-weight:600}
+@media(max-width:1180px){.branch-employee-controls{grid-template-columns:minmax(120px,1fr) minmax(130px,1fr) auto auto auto}.branch-employee-controls button{padding:7px 7px;font-size:10px}}
+@media(max-width:860px){.branch-employee-controls{grid-template-columns:minmax(120px,1fr) minmax(130px,1fr) auto auto auto;min-width:100%}.branch-employee-row{align-items:flex-start;flex-direction:column}.branch-employee-controls{width:100%}}
+
+/* Small typographic and interaction refinements shared by every SPA view. */
+h1,h2,h3,.page-title,.section-title{ text-wrap:balance }
+p,.sub,.muted,.description{ text-wrap:pretty }
+table,[data-number],.metric-value{font-variant-numeric:tabular-nums}
+button:active:not(:disabled),[role="button"]:active{transform:translateY(1px) scale(.985)!important}
+:focus-visible{outline:2px solid #176b9d!important;outline-offset:2px}

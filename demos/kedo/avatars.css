@@ -1,0 +1,68 @@
+.kedo-avatar{
+  position:relative;
+  display:inline-grid;
+  place-items:center;
+  overflow:hidden;
+  border-radius:12px;
+  background:#e8f0f7;
+  border:1px solid #c9d8e6;
+  color:#1a5f96;
+  font-weight:800;
+  flex:0 0 auto;
+  line-height:1;
+}
+.kedo-avatar img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+}
+.kedo-avatar-fallback{
+  position:relative;
+  z-index:0;
+  font-size:.72em;
+  letter-spacing:.02em;
+}
+.kedo-avatar:not(.is-fallback) .kedo-avatar-fallback{
+  opacity:0;
+  visibility:hidden;
+}
+.kedo-avatar.is-fallback img{display:none}
+.kedo-avatar.is-fallback .kedo-avatar-fallback{
+  opacity:1;
+  visibility:visible;
+}
+.kedo-avatar-sm{width:28px;height:28px;min-width:28px;border-radius:8px;font-size:11px}
+.kedo-avatar-md,.kedo-avatar.kOneAvatar{width:40px;height:40px;min-width:40px;font-size:12px}
+.kedo-avatar.home-profile-photo{
+  width:52px;height:52px;min-width:52px;font-size:15px;border-radius:14px;
+}
+.home-profile-card{cursor:pointer}
+.home-profile-card:hover{border-color:#bcd2e3}
+.kedo-avatar-lg,.profile-avatar.kedo-avatar{
+  width:84px;height:84px;min-width:84px;border-radius:18px;font-size:22px;
+}
+.profile-avatar-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.profile-avatar-upload{
+  display:inline-flex;
+  align-items:center;
+  cursor:pointer;
+}
+header.top #userCaption.user-menu-button{
+  gap:8px!important;
+}
+header.top #userCaption .kedo-avatar{
+  border-color:rgba(255,255,255,.25);
+  background:rgba(255,255,255,.12);
+  color:#fff;
+}
+.kOneAvatar.kedo-avatar,.kOneBig.kedo-avatar{
+  border-radius:12px;
+}

@@ -1,0 +1,2912 @@
+/* Internal KEDO — unified interface system v5.32
+   One visual language for all portal sections.
+*/
+:root{
+  --kedo-bg:#e6edf5;
+  --kedo-surface:#fff;
+  --kedo-surface-soft:#f2f6fb;
+  --kedo-border:#cfdceb;
+  --kedo-border-strong:#b4c7db;
+  --kedo-text:#1a2a3a;
+  --kedo-heading:#0d2137;
+  --kedo-muted:#6a7f94;
+  --kedo-primary:#1a5f96;
+  --kedo-primary-hover:#154e7c;
+  --kedo-success:#1f6b45;
+  --kedo-danger:#a94442;
+  --kedo-radius:8px;
+  --kedo-shadow:0 1px 3px rgba(13,33,55,.06);
+}
+
+html,body{background:var(--kedo-bg);color:var(--kedo-text);font-family:"Manrope","Segoe UI",sans-serif}
+body{font-size:14.5px;line-height:1.45}
+
+/* ---------- Global shell ---------- */
+.top{min-height:64px!important;padding:0 24px!important}
+.body{width:min(1280px,calc(100% - 36px))!important;padding:18px 0 34px!important}
+
+.nav{
+  min-height:48px;
+  align-items:center;
+  gap:3px!important;
+  padding:4px!important;
+  margin-bottom:16px!important;
+  background:#eaf0f5!important;
+  border:1px solid #dbe5ee!important;
+  border-radius:11px!important;
+  box-shadow:0 2px 8px rgba(30,65,95,.025);
+}
+.nav button{
+  min-height:38px!important;
+  padding:8px 13px!important;
+  border-radius:8px!important;
+  color:#425466!important;
+  font-size:14px!important;
+  font-weight:500;
+}
+.nav button:hover{background:#fff!important;color:#173b62!important}
+.nav button.active{background:var(--kedo-primary)!important;color:#fff!important;box-shadow:0 2px 6px rgba(23,105,170,.2)!important}
+.nav button[data-page="knowledge"]{margin-left:4px!important;padding-left:17px!important;border-left:1px solid #d2dee8!important}
+.nav button[data-page="admin"]{margin-left:auto!important}
+.nav-admin-separator{height:25px;width:1px;background:#cbd8e3;margin-left:8px}
+
+.user-menu-button,.global-search-button{
+  height:38px!important;min-height:38px!important;
+  padding:0 13px!important;
+  border:1px solid rgba(255,255,255,.25)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.08)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.user-menu-button{font-weight:600!important;max-width:310px!important}
+.global-search-button{font-weight:500!important}
+.user-menu-button:hover,.global-search-button:hover{background:rgba(255,255,255,.14)!important}
+
+/* ---------- Typography ---------- */
+.page-title{font-size:28px!important;line-height:1.15!important;margin:3px 0 7px!important;color:var(--kedo-heading)!important;letter-spacing:-.02em}
+.eyebrow{font-size:10px!important;letter-spacing:.08em!important;font-weight:800!important;color:#71869a!important}
+.muted{color:var(--kedo-muted)!important}
+
+/* ---------- One card language ---------- */
+.card,.stat,.admin-stat{
+  border:1px solid var(--kedo-border)!important;
+  border-radius:var(--kedo-radius)!important;
+  box-shadow:var(--kedo-shadow)!important;
+  background:var(--kedo-surface)!important;
+}
+.card{padding:16px!important;margin-bottom:14px!important}
+.card h2{font-size:19px!important;line-height:1.25!important;margin:0 0 10px!important;color:#20364f!important}
+
+/* Small clickable plaques / list items */
+.document,.inbox-item,.home-action-row,.tasks-summary-card,.org-group-button,.branch-dep-row,.branch-employee-row,.admin-requests-card .account-request-row{
+  border-color:var(--kedo-border)!important;
+}
+.document{padding:12px 0!important;gap:14px!important}
+.doc-actions{gap:6px!important}
+.doc-actions button,.admin-actions button{min-height:34px!important;padding:7px 10px!important;font-size:12px!important;border-radius:8px!important}
+
+/* ---------- Forms become compact reusable panels ---------- */
+.kedo-form-panel{
+  border:1px solid var(--kedo-border)!important;
+  border-radius:var(--kedo-radius)!important;
+  background:#fff!important;
+  box-shadow:var(--kedo-shadow)!important;
+  margin-bottom:14px!important;
+}
+.kedo-form-panel-head{
+  min-height:58px!important;
+  padding:12px 15px!important;
+  border-radius:var(--kedo-radius)!important;
+}
+.kedo-form-panel-head strong{font-size:16px!important;line-height:1.2!important}
+.kedo-form-panel-head small{font-size:11px!important}
+.kedo-form-chevron{font-size:18px!important}
+.kedo-form-panel-body{padding:0 15px 15px!important}
+.kedo-form-panel.is-collapsed .kedo-form-panel-body{padding-bottom:0!important}
+.kedo-form-panel .row{gap:11px!important;margin-bottom:11px!important}
+.kedo-form-panel label{font-size:12px!important;font-weight:600!important;color:#314b63!important}
+.kedo-form-panel input,.kedo-form-panel select,.kedo-form-panel textarea{
+  min-height:38px!important;
+  padding:8px 10px!important;
+  border-radius:8px!important;
+  font-size:13px!important;
+}
+.kedo-form-panel textarea{min-height:96px!important}
+.kedo-form-panel .notice{font-size:12px!important;padding:9px 11px!important;margin-bottom:11px!important}
+.kedo-form-panel .primary,.kedo-form-panel .secondary,.kedo-form-panel .danger,.kedo-form-panel .danger-outline{
+  min-height:36px!important;padding:8px 11px!important;font-size:12px!important;border-radius:8px!important
+}
+
+/* Document upload: same plaque as order/task/material forms */
+.kedo-upload-card.kedo-form-panel{padding:0!important;overflow:hidden!important}
+.kedo-upload-head{padding:0!important}
+.kedo-upload-head h2{margin:2px 0 3px!important;font-size:17px!important}
+.kedo-upload-head p{margin:0!important;font-size:11px!important}
+.kedo-upload-card .upload-section-title{margin:13px 0 7px!important}
+.kedo-upload-card .workflow-choice-grid{gap:8px!important}
+.kedo-upload-card .workflow-choice{
+  min-height:70px!important;padding:10px!important;border-radius:10px!important
+}
+.kedo-upload-card .workflow-choice b{font-size:12px!important}
+.kedo-upload-card .workflow-choice small{font-size:10px!important;line-height:1.35!important}
+.kedo-upload-card .file-drop-zone{
+  min-height:62px!important;padding:9px 11px!important;border-radius:9px!important
+}
+.kedo-upload-card .file-drop-icon{width:32px!important;height:32px!important;border-radius:8px!important}
+.kedo-upload-card .file-drop-zone b{font-size:12px!important}
+.kedo-upload-card .file-drop-zone small{font-size:10px!important}
+.kedo-upload-card .doc-actions{margin-top:11px!important}
+
+/* Orders / knowledge use exactly the same visual language */
+.order-recipient-box{gap:10px!important}
+.order-group-scope-card,.workflow-target-card,.group-scope-grid,.doc-recipient-builder{
+  border-color:var(--kedo-border)!important;border-radius:9px!important
+}
+
+/* ---------- Search and lists ---------- */
+.search{gap:7px!important}
+.search input{min-height:38px!important;border-radius:8px!important;font-size:13px!important}
+.search button{min-height:38px!important;padding:8px 12px!important;font-size:12px!important;border-radius:8px!important}
+.table-wrap{border-radius:9px!important}
+
+/* ---------- Dashboard ---------- */
+.home-focus.card,.home-columns .card,.leader-control-card{padding:15px!important}
+.home-section-head h2{font-size:18px!important}
+.home-action-row{min-height:58px!important;padding:9px 11px!important;border-radius:9px!important}
+.home-metric{min-height:88px!important;border-radius:10px!important}
+
+/* ---------- Tasks ---------- */
+.tasks-summary{gap:9px!important}
+.tasks-summary-card{min-height:76px!important;padding:11px 13px!important;border-radius:10px!important}
+.task-create-shell{border-radius:12px!important;border-color:var(--kedo-border)!important;box-shadow:var(--kedo-shadow)!important}
+.task-create-head{min-height:58px!important;padding:11px 14px!important}
+.task-create-head-copy strong{font-size:16px!important}
+.task-create-body{padding:0 14px 14px!important}
+
+/* ---------- Profile ---------- */
+.profile-identity,.profile-card,.profile-shortcuts{border-radius:12px!important}
+.profile-identity{padding:15px!important}
+.profile-card{padding:15px!important}
+.profile-info-list>div{padding:9px 0!important}
+.profile-setting{padding:11px 0!important}
+
+/* ---------- Admin ---------- */
+.admin-tabs{display:flex!important;gap:7px!important;margin:4px 0 14px!important}
+.admin-tabs button{min-height:36px!important;padding:8px 12px!important;font-size:12px!important;border-radius:8px!important}
+.admin-stats{gap:9px!important;margin-bottom:14px!important}
+.admin-stat{padding:13px!important}
+.admin-stat b{font-size:23px!important}
+.admin-employees-card .employee-row{border-radius:10px!important;padding:8px 10px!important}
+.admin-audit-card .audit-row{border-radius:9px!important;min-height:48px!important;padding:7px 10px!important}
+
+/* ---------- Empty / notice states ---------- */
+.empty,.home-empty,.inbox-empty{font-size:13px!important}
+.notice,.admin-load-warning{border-radius:9px!important}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .body{width:min(100% - 24px,1280px)!important}
+  .nav{overflow:auto;flex-wrap:nowrap}
+  .nav button{flex:0 0 auto}
+  .nav button[data-page="admin"]{margin-left:0!important}
+  .nav-admin-separator{display:none}
+}
+@media(max-width:650px){
+  .top{padding:0 12px!important}
+  .body{width:calc(100% - 20px)!important}
+  .page-title{font-size:24px!important}
+  .card{padding:13px!important}
+  .kedo-form-panel-body{padding:0 12px 12px!important}
+}
+
+/* =========================================================
+   Internal KEDO 5.33 — UX audit / one-product pass
+   Goal: every section should feel like the same application.
+   ========================================================= */
+:root{
+  --kedo-space-1:4px;
+  --kedo-space-2:8px;
+  --kedo-space-3:12px;
+  --kedo-space-4:16px;
+  --kedo-space-5:20px;
+  --kedo-control-h:38px;
+}
+
+/* Global rhythm */
+#main{min-width:0}
+#main>.page-title{margin-top:0!important;margin-bottom:4px!important}
+#main>.page-title + .muted{margin:0 0 14px!important}
+#main>.card{margin-bottom:12px!important}
+#main>section.card:last-child{margin-bottom:0!important}
+.card{box-shadow:0 4px 14px rgba(27,52,78,.035)!important}
+
+/* Compact page headers */
+.home-welcome,.inbox-hero,.branch-hero{margin-bottom:14px!important}
+.home-welcome .muted,.branch-hero-copy .muted{margin-top:4px!important}
+.help-page>.page-title,.profile-page>.page-title,.tasks-page>.page-title,.messages-page>.page-title{margin-bottom:4px!important}
+
+/* Buttons: one scale, one hierarchy */
+.primary,.secondary,.danger,.danger-outline{
+  min-height:36px!important;
+  padding:8px 12px!important;
+  border-radius:8px!important;
+  font-size:12px!important;
+}
+.primary{font-weight:600!important}
+.secondary{font-weight:500!important}
+.danger,.danger-outline{font-weight:500!important}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid rgba(23,105,170,.28)!important;
+  outline-offset:2px!important;
+}
+
+/* Top bar: identity and search are deliberately siblings */
+.top{min-height:60px!important;padding:0 24px!important}
+.top-right{gap:7px!important}
+.user-menu-button,.global-search-button{
+  height:36px!important;min-height:36px!important;
+  border-radius:9px!important;
+  border:1px solid rgba(255,255,255,.23)!important;
+  background:rgba(255,255,255,.08)!important;
+  box-shadow:none!important;
+}
+.user-menu-button{max-width:300px!important;padding:7px 12px!important}
+.global-search-button{padding:7px 12px!important}
+.notification-button{height:36px!important;min-width:36px!important;border-radius:9px!important}
+
+/* Navigation: quiet by default, strong only for current section */
+.nav{margin-bottom:14px!important;gap:2px!important}
+.nav button{height:36px!important;min-height:36px!important;padding:7px 12px!important;border-radius:8px!important}
+.nav button.active{font-weight:600!important}
+.nav button[data-page="admin"]{font-weight:600!important}
+
+/* Form plaques: same component for documents, orders, tasks and materials */
+.kedo-form-panel{overflow:hidden!important}
+.kedo-form-panel.is-collapsed{padding:0!important}
+.kedo-form-panel-head.kedo-collapsible-head{
+  width:100%!important;
+  min-height:64px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  padding:11px 14px!important;
+  border:0!important;
+  background:#fff!important;
+  color:var(--kedo-text)!important;
+  text-align:left!important;
+  cursor:pointer!important;
+}
+.kedo-form-panel-head.kedo-collapsible-head>span:first-child{display:flex;align-items:center;gap:10px;min-width:0}
+.kedo-form-panel-head.kedo-collapsible-head>span:first-child>span:last-child{display:grid;gap:2px;min-width:0}
+.kedo-form-panel-head strong{display:block!important;font-size:15px!important;color:#203b58!important}
+.kedo-form-panel-head small{display:block!important;color:#7b8da0!important;font-size:10px!important;line-height:1.35!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(700px,72vw)}
+.kedo-form-icon{width:34px!important;height:34px!important;display:grid!important;place-items:center!important;flex:0 0 auto!important;border-radius:9px!important;background:#edf5fb!important;color:#1769aa!important;font-weight:800!important;font-size:15px!important}
+.kedo-form-panel-head:hover{background:#fbfdff!important}
+.kedo-form-panel-head:hover .kedo-form-icon{background:#e6f1f8!important}
+.kedo-form-panel.is-collapsed .kedo-form-panel-body{display:none!important}
+.kedo-form-panel:not(.is-collapsed) .kedo-form-panel-head{border-bottom:1px solid #edf2f6!important}
+.kedo-form-panel:not(.is-collapsed) .kedo-form-chevron{transform:rotate(180deg)!important}
+.kedo-form-chevron{transition:transform .18s ease!important;color:#6f8395!important;font-size:17px!important}
+.kedo-form-intro{margin:0 0 12px!important;font-size:12px!important;line-height:1.45!important}
+.kedo-upload-card .kedo-form-panel-body{padding:12px 15px 15px!important}
+.kedo-order-panel .kedo-form-panel-body{padding:12px 15px 15px!important}
+.kedo-form-panel .notice{margin-bottom:12px!important}
+
+/* Workflow choices: compact segmented cards instead of oversized tiles */
+.workflow-choice-grid{gap:7px!important;margin-bottom:10px!important}
+.workflow-choice{min-height:62px!important;padding:9px 10px!important;border-radius:9px!important}
+.workflow-choice-icon{width:28px!important;height:28px!important;border-radius:8px!important}
+.workflow-choice b{font-size:12px!important}
+.workflow-choice small{font-size:9px!important;line-height:1.3!important}
+.workflow-target-card{padding:10px 11px!important;margin-top:9px!important}
+.workflow-target-head{gap:8px!important;margin-bottom:8px!important}
+.doc-recipient-builder{gap:8px!important}
+.route-summary{margin-top:8px!important;padding:8px 10px!important;font-size:10px!important}
+
+/* Documents / orders list: less vertical air */
+.document{padding:10px 0!important;grid-template-columns:minmax(0,1fr) minmax(220px,auto)!important;gap:10px!important}
+.document>div:first-child>strong{font-size:13px!important;color:#203b58!important}
+.document .muted{font-size:10px!important}
+.doc-status-line{margin-top:6px!important;gap:4px!important}
+.doc-status{padding:4px 7px!important;border-radius:7px!important;font-size:9px!important}
+.doc-status-arrow{font-size:10px!important}
+.signature-plaque{margin-top:8px!important;padding:8px 10px!important}
+.doc-actions{gap:5px!important}
+.doc-actions button{min-height:32px!important;padding:6px 9px!important}
+
+/* Search cards */
+.search{gap:6px!important;margin-bottom:10px!important}
+.search input{height:36px!important;min-height:36px!important}
+.search button{height:36px!important;min-height:36px!important}
+
+/* Inbox */
+.inbox-stats{gap:8px!important}
+.inbox-stat{padding:10px 12px!important;border-radius:10px!important}
+.inbox-stat b{font-size:19px!important}
+.inbox-section{margin-bottom:10px!important}
+.inbox-section-head{margin-bottom:7px!important}
+.inbox-section-head h2{font-size:17px!important}
+.inbox-item{padding:9px 10px!important;border-radius:10px!important;grid-template-columns:32px minmax(0,1fr) auto!important}
+.inbox-item-icon{width:32px!important;height:32px!important;border-radius:9px!important}
+
+/* Tasks: the same compact form language as documents */
+.task-create-shell{border-radius:12px!important;margin-bottom:12px!important}
+.task-create-head{min-height:60px!important;padding:10px 13px!important}
+.task-create-icon{width:32px!important;height:32px!important;border-radius:9px!important}
+.task-create-body{padding:0 13px 13px!important}
+.task-card{border-radius:10px!important;padding:10px 12px!important}
+.tasks-summary{gap:7px!important}
+.tasks-summary-card{min-height:68px!important;padding:10px 11px!important;border-radius:9px!important}
+
+/* Help / knowledge */
+.help-grid{gap:9px!important}
+.help-item{border-radius:10px!important}
+.help-item summary{padding:11px 12px!important;font-size:12px!important}
+.help-body{padding:0 12px 12px!important}
+.knowledge-grid,.knowledge-list{gap:9px!important}
+
+/* Messages: stable shell, no decorative jumps */
+.messages-page,.chat-page{min-width:0!important}
+.chat-shell,.messages-shell{border-radius:14px!important;box-shadow:0 5px 18px rgba(27,52,78,.045)!important}
+.chat-contact:hover{transform:none!important}
+.chat-contact.chat-moved{animation:none!important}
+.chat-message{animation:none!important}
+
+/* Profile: make it a real account area, not a lonely card */
+.profile-layout,.profile-grid{gap:12px!important}
+.profile-card,.profile-identity,.profile-shortcuts{border-radius:12px!important}
+.profile-card h2,.profile-identity h2{font-size:18px!important}
+.profile-shortcut-grid{gap:7px!important}
+.profile-shortcut-grid button{min-height:62px!important;padding:9px 10px!important;border-radius:9px!important}
+
+/* Branch / structure */
+.branch-layout{gap:12px!important}
+.branch-card{border-radius:12px!important}
+.branch-card-head{padding:12px 14px!important}
+.branch-list{padding:3px 12px 6px!important}
+.branch-dep-row,.branch-employee-row{padding:9px 2px!important}
+.branch-row-actions button{min-height:30px!important;padding:5px 8px!important}
+.branch-add{padding:9px 12px!important}
+
+/* Admin: hierarchy and sections are visually clear but restrained */
+.admin-stats{gap:8px!important}
+.admin-stat{padding:11px 12px!important;border-radius:10px!important}
+.admin-stat b{font-size:21px!important}
+.admin-collapsible{margin-bottom:10px!important}
+.admin-collapsible-summary{min-height:52px!important;padding:10px 12px!important}
+.admin-section-head{gap:10px!important}
+.admin-section-head h2{font-size:17px!important}
+.admin-org-groups,.admin-employees-card,.admin-audit-card{margin-top:12px!important}
+.admin-employees-card .employee-row{min-height:58px!important;padding:8px 9px!important}
+.admin-employees-card .employee-actions button{min-height:30px!important;padding:5px 8px!important}
+.admin-audit-card .audit-filter-minimal{margin:10px 0!important}
+.admin-audit-card .audit-row{min-height:48px!important;padding:7px 9px!important}
+
+/* Modals */
+.account-request-card,.admin-edit-modal,.group-management-modal,.workflow-modal{border-radius:14px!important}
+.admin-edit-overlay .admin-edit-modal{box-shadow:0 24px 70px rgba(15,35,55,.28)!important}
+
+/* Consistent empty / error states */
+.empty,.home-empty,.inbox-empty,.branch-empty{padding:20px 12px!important;border-radius:9px!important}
+.err.card{background:#fff!important;border-color:#f0d0cc!important}
+.admin-load-warning{border-radius:9px!important;padding:9px 11px!important;margin-bottom:10px!important}
+
+/* Desktop width: enough room for forms without making cards feel stretched */
+@media(min-width:1100px){
+  #main{max-width:1260px;margin:0 auto}
+  .kedo-upload-card,.kedo-order-panel{max-width:1260px}
+}
+@media(max-width:800px){
+  .top{padding:0 12px!important}
+  .top>b{font-size:13px!important}
+  .top-right{gap:5px!important}
+  .global-search-button span{display:none!important}
+  .global-search-button{width:36px!important;padding:0!important}
+  .kedo-form-panel-head small{max-width:60vw}
+}
+@media(max-width:620px){
+  .top>div:first-child{min-width:0}
+  .user-menu-button{max-width:190px!important}
+  .user-menu-button{overflow:hidden;text-overflow:clip;white-space:normal}
+  .kedo-form-panel-head{min-height:58px!important}
+  .kedo-form-panel-body{padding:10px!important}
+  .workflow-choice-grid{grid-template-columns:1fr!important}
+  .document{grid-template-columns:1fr!important}
+}
+
+/* =========================================================
+   Internal KEDO 5.34 — final UX polish
+   No new business logic. This layer only tightens the existing
+   visual language and makes the portal feel like one product.
+   ========================================================= */
+
+/* The nav already provides the page context; the small technical caption
+   between navigation and content is visually redundant. */
+#pageCaption{display:none!important}
+
+/* One compact control language everywhere. */
+button.primary,button.secondary,button.danger,button.danger-outline,
+input,select,textarea{
+  font-family:inherit!important;
+}
+button.primary,button.secondary,button.danger,button.danger-outline{
+  min-height:36px!important;
+  border-radius:8px!important;
+  line-height:1.2!important;
+}
+
+/* Header identity/search controls are intentionally identical in size. */
+.top-right{display:flex!important;align-items:center!important;gap:7px!important}
+.user-menu-button,.global-search-button{
+  height:36px!important;
+  min-height:36px!important;
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  padding:7px 12px!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.075)!important;
+  color:#fff!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  box-shadow:none!important;
+}
+.user-menu-button{max-width:300px!important;overflow:hidden!important;text-overflow:clip!important;white-space:normal!important}
+.global-search-button{min-width:104px!important}
+.user-menu-button:hover,.global-search-button:hover{background:rgba(255,255,255,.14)!important;border-color:rgba(255,255,255,.3)!important}
+.notification-button{height:36px!important;width:36px!important;min-width:36px!important;border-radius:9px!important}
+
+/* Navigation: keep the administrative area visually separated without
+   making the rest of the navigation noisy. */
+.nav{padding:4px!important;min-height:46px!important}
+.nav button{height:36px!important;min-height:36px!important}
+.nav-admin-separator{margin-left:auto!important;margin-right:5px!important;height:24px!important;background:#cad7e2!important}
+.nav button[data-page="admin"]{margin-left:0!important}
+
+/* Compact page header: consistent with the cards below it. */
+#main>.page-title{font-size:27px!important;line-height:1.15!important;margin:0 0 5px!important}
+#main>.page-title + .muted{font-size:13px!important;color:#708197!important;margin-bottom:13px!important}
+
+/* Every expandable form uses the same small, clickable plaque. */
+.kedo-form-panel{border-radius:12px!important;margin-bottom:12px!important}
+.kedo-form-panel-head.kedo-collapsible-head{
+  min-height:58px!important;
+  padding:9px 13px!important;
+}
+.kedo-form-icon{width:30px!important;height:30px!important;border-radius:8px!important;font-size:13px!important}
+.kedo-form-panel-head strong{font-size:14px!important}
+.kedo-form-panel-head small{font-size:10px!important}
+.kedo-form-chevron{font-size:15px!important}
+.kedo-form-panel-body{padding:11px 13px 13px!important}
+
+/* Workflow choices should read as a selector, not three large cards. */
+.workflow-choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+.workflow-choice{min-height:58px!important;padding:8px 9px!important;border-radius:9px!important}
+.workflow-choice-icon{width:26px!important;height:26px!important;border-radius:7px!important;font-size:11px!important}
+.workflow-choice b{font-size:11px!important}
+.workflow-choice small{font-size:9px!important}
+
+/* Lists: compact rows with a predictable density. */
+.document,.inbox-item,.task-card,.employee-row,.audit-row,
+.branch-dep-row,.branch-employee-row{transition:background .14s ease,border-color .14s ease!important}
+.document:hover,.inbox-item:hover,.task-card:hover,.employee-row:hover,
+.audit-row:hover,.branch-dep-row:hover,.branch-employee-row:hover{background:#fbfdff!important}
+
+/* Employees and audit should never become a wall of oversized controls. */
+.employee-actions,.admin-actions,.doc-actions,.branch-row-actions{display:flex!important;align-items:center!important;gap:5px!important;flex-wrap:wrap!important}
+.employee-actions button,.admin-actions button,.doc-actions button,.branch-row-actions button{
+  min-height:30px!important;
+  padding:5px 8px!important;
+  font-size:11px!important;
+  border-radius:7px!important;
+}
+
+/* Branch selector rows: checkbox, name and action stay on one clean line. */
+html body .group-department-item{
+  grid-template-columns:18px minmax(0,1fr) auto!important;
+  min-height:40px!important;height:40px!important;
+  padding:7px 9px!important;
+  border-radius:8px!important;
+}
+html body .group-department-item input[type="checkbox"]{
+  width:16px!important;height:16px!important;min-width:16px!important;min-height:16px!important;
+}
+html body .group-department-item .pending-dep-remove,
+html body .group-department-item button{
+  min-height:28px!important;height:28px!important;padding:4px 8px!important;font-size:11px!important;
+}
+
+/* Profile: useful density without making it feel like an admin table. */
+.profile-identity{min-height:96px!important}
+.profile-shortcut-grid button{min-height:58px!important}
+.profile-info-list>div{font-size:12px!important}
+
+/* Messages: keep the conversation surface stable; only the message list scrolls. */
+.chat-shell,.messages-shell{overflow:hidden!important}
+.chat-messages,.messages-list,.chat-scroll,.message-list{
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable!important;
+}
+.chat-message,.message-bubble{animation:none!important;transform:none!important}
+
+/* Notifications are subtle, not modal-looking. */
+.kedo-notification-toast{border-radius:10px!important;box-shadow:0 10px 28px rgba(20,45,70,.15)!important}
+
+/* Empty/error states use the same surface as the rest of the portal. */
+.empty,.home-empty,.inbox-empty,.branch-empty{border:1px solid #e3eaf0!important;background:#fbfdff!important}
+.err.card{box-shadow:0 4px 14px rgba(27,52,78,.035)!important}
+
+/* Prevent long names/titles from breaking the page grid. */
+#main strong,#main h1,#main h2,#main h3{overflow-wrap:anywhere}
+
+@media(max-width:900px){
+  .workflow-choice-grid{grid-template-columns:1fr!important}
+  .nav-admin-separator{margin-left:4px!important}
+}
+@media(max-width:650px){
+  .user-menu-button{max-width:210px!important}
+  .global-search-button{min-width:36px!important;width:36px!important;padding:0!important}
+  .global-search-button span{display:none!important}
+  #main>.page-title{font-size:24px!important}
+}
+
+/* =========================================================
+   Internal KEDO 5.36 — Soft visual theme / readable density
+   Softer surfaces, warmer neutral background and larger type.
+   Business logic is intentionally untouched.
+   ========================================================= */
+:root{
+  --kedo-bg:#eef2f6;
+  --kedo-surface:#fbfcfd;
+  --kedo-surface-soft:#f4f7fa;
+  --kedo-border:#d5e0e9;
+  --kedo-border-strong:#c5d3df;
+  --kedo-text:#263548;
+  --kedo-heading:#1d4268;
+  --kedo-muted:#718197;
+  --kedo-primary:#246fa8;
+  --kedo-primary-hover:#1e628f;
+  --kedo-success:#25805a;
+  --kedo-danger:#b84a43;
+  --kedo-radius:12px;
+  --kedo-shadow:0 4px 18px rgba(35,55,75,.055);
+}
+
+html,body{background:var(--kedo-bg)!important;color:var(--kedo-text)!important}
+body{
+  font-size:15px!important;
+  line-height:1.55!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* Give the whole portal more breathing room and avoid the tiny-dashboard feel. */
+.body{padding:22px 0 42px!important}
+#main>.page-title{font-size:30px!important;line-height:1.18!important;margin:0 0 7px!important;letter-spacing:-.018em!important}
+#main>.page-title + .muted{font-size:14px!important;line-height:1.5!important;color:#718097!important;margin-bottom:16px!important}
+.eyebrow{font-size:11px!important;letter-spacing:.075em!important;color:#718298!important}
+.muted{color:var(--kedo-muted)!important}
+
+/* Softer cards: no pure white glare against the page background. */
+.card,.stat,.admin-stat,
+.kedo-form-panel,
+.chat-shell,.messages-shell,
+.profile-card,.profile-identity,.profile-shortcuts,
+.branch-card,.task-create-shell{
+  background:var(--kedo-surface)!important;
+  border-color:var(--kedo-border)!important;
+  box-shadow:var(--kedo-shadow)!important;
+}
+.card{padding:19px!important;margin-bottom:16px!important}
+.card h2{font-size:20px!important;line-height:1.3!important;color:#29435d!important}
+
+/* Inputs and selects should feel calm rather than bright white. */
+input,select,textarea,
+.search input,
+.kedo-form-panel input,.kedo-form-panel select,.kedo-form-panel textarea{
+  background:#f9fbfc!important;
+  color:#2b3c50!important;
+  border-color:#cbd8e3!important;
+  font-size:14px!important;
+}
+input::placeholder,textarea::placeholder{color:#8997a7!important;opacity:1!important}
+input:focus,select:focus,textarea:focus{
+  background:#fcfdfe!important;
+  border-color:#8eb4d1!important;
+  box-shadow:0 0 0 3px rgba(36,111,168,.09)!important;
+}
+
+/* Navigation is a quiet shell, not another high-contrast block. */
+.nav{
+  background:#e7edf3!important;
+  border-color:#d4dfe8!important;
+  box-shadow:0 2px 10px rgba(35,55,75,.035)!important;
+}
+.nav button{font-size:15px!important;color:#53657a!important}
+.nav button:hover{background:#f8fafb!important;color:#254666!important}
+.nav button.active{background:#2b74aa!important;box-shadow:0 2px 7px rgba(36,111,168,.16)!important}
+
+/* Header controls: softer than the old bright contrast, but still clear. */
+.user-menu-button,.global-search-button{
+  background:rgba(255,255,255,.075)!important;
+  border-color:rgba(255,255,255,.20)!important;
+  font-size:14px!important;
+}
+
+/* Dashboard cards: larger labels and less visual noise. */
+.home-metric{min-height:96px!important;padding:15px!important}
+.home-metric b{font-size:24px!important}
+.home-action-row{min-height:72px!important;padding:12px 14px!important}
+.home-action-row strong{font-size:15px!important}
+.home-action-row small{font-size:12px!important}
+.home-focus.card,.home-columns .card,.leader-control-card{padding:19px!important}
+.home-section-head h2{font-size:20px!important}
+
+/* Status/stat cards should not look like white tiles pasted on the page. */
+.stat,.admin-stat{background:#f8fafc!important}
+.inbox-stat{background:#f8fafc!important;border-color:var(--kedo-border)!important}
+.tasks-summary-card{background:#f8fafc!important}
+
+/* Expandable plaques: slightly taller and easier to scan. */
+.kedo-form-panel-head.kedo-collapsible-head{
+  min-height:70px!important;
+  padding:12px 16px!important;
+}
+.kedo-form-icon{width:36px!important;height:36px!important;border-radius:9px!important;background:#e9f2f8!important;color:#286f9f!important;font-size:14px!important}
+.kedo-form-panel-head strong{font-size:16px!important;color:#29435d!important}
+.kedo-form-panel-head small{font-size:11px!important;color:#7a899a!important}
+.kedo-form-chevron{font-size:17px!important}
+.kedo-form-panel-body{padding:14px 16px 17px!important}
+
+/* Workflow choices: readable without returning to oversized tiles. */
+.workflow-choice{min-height:68px!important;padding:10px 11px!important;background:#f8fafc!important}
+.workflow-choice b{font-size:13px!important}
+.workflow-choice small{font-size:10px!important}
+
+/* Lists and audit rows: comfortable reading size. */
+.document>div:first-child>strong{font-size:14px!important}
+.document .muted{font-size:11px!important}
+.inbox-item{padding:11px 12px!important}
+.inbox-section-head h2{font-size:19px!important}
+.task-card{padding:12px 14px!important}
+.admin-employees-card .employee-row{min-height:66px!important;padding:10px 12px!important}
+.admin-audit-card .audit-row{min-height:56px!important;padding:9px 12px!important}
+
+/* Buttons remain compact, but text is no longer tiny. */
+.primary,.secondary,.danger,.danger-outline,
+button.primary,button.secondary,button.danger,button.danger-outline{
+  min-height:38px!important;
+  padding:8px 13px!important;
+  font-size:13px!important;
+}
+.employee-actions button,.admin-actions button,.doc-actions button,.branch-row-actions button{
+  min-height:32px!important;
+  padding:6px 9px!important;
+  font-size:12px!important;
+}
+
+/* Profile: make the identity readable at a glance. */
+.profile-identity{padding:19px!important;min-height:112px!important}
+.profile-card{padding:19px!important}
+.profile-card h2,.profile-identity h2{font-size:20px!important}
+.profile-info-list>div{padding:11px 0!important;font-size:13px!important}
+.profile-shortcut-grid button{min-height:68px!important;padding:11px 12px!important}
+
+/* Branch rows: compact, but with enough vertical room for labels. */
+html body .group-department-item{
+  min-height:48px!important;height:48px!important;
+  padding:8px 10px!important;
+  background:#f8fafc!important;
+}
+html body .group-department-item button,
+html body .group-department-item .pending-dep-remove{
+  min-height:30px!important;height:30px!important;font-size:12px!important
+}
+
+/* Modals: soften the backdrop and increase text legibility. */
+.account-request-card,.admin-edit-modal,.group-management-modal,.workflow-modal{background:#fbfcfd!important}
+
+/* Responsive typography: keep the larger base comfortable on mobile. */
+@media(max-width:650px){
+  body{font-size:14px!important}
+  #main>.page-title{font-size:26px!important}
+  .card{padding:15px!important}
+  .kedo-form-panel-head.kedo-collapsible-head{min-height:64px!important;padding:10px 12px!important}
+  .kedo-form-panel-head strong{font-size:15px!important}
+}
+
+
+/* v5.38 — calm, compact baseline. Keep all expandable forms on one controller. */
+:root{
+  --kedo-bg:#eef2f5;
+  --kedo-surface:#f9fbfc;
+  --kedo-surface-soft:#f2f6f8;
+  --kedo-border:#d7e0e7;
+  --kedo-border-strong:#c8d4de;
+  --kedo-text:#2b3b4b;
+  --kedo-heading:#23415d;
+  --kedo-muted:#718092;
+  --kedo-primary:#2d6f9f;
+  --kedo-primary-hover:#285f89;
+  --kedo-shadow:0 3px 12px rgba(31,55,75,.035);
+}
+html,body{background:var(--kedo-bg)!important;color:var(--kedo-text)!important}
+body{font-size:14px!important;line-height:1.48!important}
+.body{padding:18px 0 34px!important}
+#main>.page-title{font-size:28px!important;line-height:1.16!important;margin:0 0 8px!important;color:var(--kedo-heading)!important}
+#main>.page-title + .muted{font-size:13px!important;color:#768596!important;margin-bottom:14px!important}
+.card,.stat,.admin-stat,.kedo-form-panel,.chat-shell,.messages-shell,.profile-card,.profile-identity,.profile-shortcuts,.branch-card,.task-create-shell{
+  background:var(--kedo-surface)!important;
+  border-color:var(--kedo-border)!important;
+  box-shadow:var(--kedo-shadow)!important;
+}
+.card{padding:16px!important;margin-bottom:13px!important}
+.card h2{font-size:18px!important;color:#2a435b!important}
+
+/* Inputs: slightly smaller and less white glare. */
+input,select,textarea,.search input,.kedo-form-panel input,.kedo-form-panel select,.kedo-form-panel textarea{
+  background:#f5f8fa!important;
+  border-color:#cbd7e0!important;
+  color:#2f4050!important;
+  font-size:13px!important;
+}
+input:focus,select:focus,textarea:focus{
+  background:#f9fbfc!important;
+  border-color:#91adc2!important;
+  box-shadow:0 0 0 2px rgba(45,111,159,.08)!important;
+}
+
+/* Navigation: low contrast, quiet, still clearly interactive. */
+.nav{background:#e5ebef!important;border-color:#d2dde5!important;box-shadow:none!important}
+.nav button{font-size:14px!important;color:#526476!important}
+.nav button:hover{background:#f3f6f8!important;color:#2d4b66!important}
+.nav button.active{background:#3977a1!important;box-shadow:0 1px 4px rgba(45,111,159,.13)!important}
+
+/* Header controls stay understated. */
+.user-menu-button,.global-search-button{font-size:13px!important;background:rgba(255,255,255,.065)!important;border-color:rgba(255,255,255,.17)!important}
+
+/* One canonical expandable plaque. */
+.kedo-form-panel{border-radius:11px!important;margin-bottom:12px!important;overflow:hidden!important}
+.kedo-form-panel-head.kedo-collapsible-head{
+  min-height:62px!important;
+  padding:10px 13px!important;
+  border-radius:11px!important;
+}
+.kedo-form-icon{width:32px!important;height:32px!important;border-radius:8px!important;background:#e8f0f5!important;color:#3a7096!important;font-size:13px!important}
+.kedo-form-panel-head strong{font-size:15px!important;color:#2a435b!important}
+.kedo-form-panel-head small{font-size:10px!important;color:#7b8997!important}
+.kedo-form-chevron{font-size:15px!important;color:#7b8b99!important}
+.kedo-form-panel-body{padding:12px 14px 14px!important}
+.kedo-form-panel .row{gap:10px!important;margin-bottom:10px!important}
+.kedo-form-panel label{font-size:12px!important;color:#40566a!important}
+.kedo-form-panel input,.kedo-form-panel select{min-height:36px!important;padding:7px 9px!important}
+.kedo-form-panel textarea{min-height:90px!important;padding:8px 9px!important}
+.kedo-form-panel .notice{font-size:11px!important;padding:8px 10px!important;margin-bottom:10px!important;background:#f1f5f7!important;border-color:#dbe3e9!important}
+.kedo-form-panel .primary,.kedo-form-panel .secondary,.kedo-form-panel .danger,.kedo-form-panel .danger-outline{min-height:34px!important;padding:7px 10px!important;font-size:12px!important}
+.kedo-upload-card .upload-section-title{margin:12px 0 7px!important}
+.kedo-upload-card .workflow-choice{min-height:62px!important;padding:9px!important;background:#f3f7f9!important}
+.kedo-upload-card .workflow-choice b{font-size:12px!important}
+.kedo-upload-card .workflow-choice small{font-size:10px!important}
+.kedo-upload-card .file-drop-zone{min-height:58px!important;padding:8px 10px!important;background:#f4f8fa!important}
+
+/* Dashboard: fewer tiles, more breathing room, but not oversized. */
+.home-metric{min-height:82px!important;padding:13px!important;background:#f5f8fa!important}
+.home-metric b{font-size:22px!important}
+.home-action-row{min-height:64px!important;padding:10px 12px!important}
+.home-action-row strong{font-size:14px!important}
+.home-action-row small{font-size:11px!important}
+.home-focus.card,.home-columns .card,.leader-control-card{padding:16px!important}
+.home-section-head h2{font-size:18px!important}
+.stat,.admin-stat,.inbox-stat,.tasks-summary-card{background:#f4f7f9!important}
+
+/* Lists: compact but readable. */
+.document{padding:10px 0!important}
+.document>div:first-child>strong{font-size:13px!important}
+.document .muted{font-size:10px!important}
+.inbox-item{padding:10px 11px!important}
+.task-card{padding:11px 12px!important}
+.admin-employees-card .employee-row{min-height:62px!important;padding:9px 11px!important}
+.admin-audit-card .audit-row{min-height:52px!important;padding:8px 11px!important}
+
+/* Buttons: no oversized blocks. */
+.primary,.secondary,.danger,.danger-outline,button.primary,button.secondary,button.danger,button.danger-outline{
+  min-height:35px!important;padding:7px 11px!important;font-size:12px!important;border-radius:8px!important;
+}
+.employee-actions button,.admin-actions button,.doc-actions button,.branch-row-actions button{min-height:30px!important;padding:5px 8px!important;font-size:11px!important}
+
+/* Profile and branch controls. */
+.profile-identity{padding:16px!important;min-height:100px!important}
+.profile-card{padding:16px!important}
+.profile-card h2,.profile-identity h2{font-size:19px!important}
+.profile-info-list>div{padding:9px 0!important;font-size:12px!important}
+.profile-shortcut-grid button{min-height:62px!important;padding:10px!important}
+html body .group-department-item{min-height:44px!important;height:44px!important;padding:7px 9px!important}
+html body .group-department-item button,html body .group-department-item .pending-dep-remove{min-height:28px!important;height:28px!important;font-size:11px!important}
+
+@media(max-width:650px){
+  body{font-size:13px!important}
+  #main>.page-title{font-size:24px!important}
+  .card{padding:14px!important}
+  .kedo-form-panel-head.kedo-collapsible-head{min-height:58px!important;padding:9px 11px!important}
+  .kedo-form-panel-head strong{font-size:14px!important}
+}
+
+/* =========================================================
+   Internal KEDO 5.39 — calmer background + reliable collapsibles
+   ========================================================= */
+:root{
+  --kedo-bg:#e8edf1;
+  --kedo-surface:#f7f9fa;
+  --kedo-surface-soft:#eef3f6;
+  --kedo-border:#d2dde5;
+  --kedo-border-strong:#c3d0da;
+  --kedo-text:#2b3947;
+  --kedo-heading:#23415d;
+  --kedo-muted:#6f7e8e;
+  --kedo-primary:#2f6f9e;
+  --kedo-primary-hover:#285f89;
+  --kedo-shadow:0 3px 12px rgba(31,55,75,.045);
+}
+html,body{background:var(--kedo-bg)!important;color:var(--kedo-text)!important}
+.card,.stat,.admin-stat,.kedo-form-panel,.chat-shell,.messages-shell,.profile-card,.profile-identity,.profile-shortcuts,.branch-card,.task-create-shell{
+  background:var(--kedo-surface)!important;
+  border-color:var(--kedo-border)!important;
+  box-shadow:var(--kedo-shadow)!important;
+}
+/* Never leave an action button visible when its form is collapsed. */
+html body .kedo-form-panel.is-collapsed>.kedo-form-panel-body{
+  display:none!important;
+  max-height:none!important;
+  height:0!important;
+  min-height:0!important;
+  opacity:0!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+html body .kedo-form-panel:not(.is-collapsed)>.kedo-form-panel-body{
+  display:block!important;
+  height:auto!important;
+  max-height:none!important;
+  opacity:1!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+}
+html body .kedo-form-panel-head.kedo-collapsible-head{cursor:pointer!important}
+
+/* Audit journal: quieter, denser and easier to scan. */
+.admin-audit-card{
+  background:#f4f7f8!important;
+  border-color:#cfdbe3!important;
+  padding:15px!important;
+}
+.admin-audit-card .admin-section-head{padding-bottom:2px!important}
+.admin-audit-card .audit-filter-bar,
+.admin-audit-card .audit-filter-minimal{
+  background:transparent!important;
+  margin:9px 0!important;
+  padding:0!important;
+  display:flex!important;
+  gap:5px!important;
+  flex-wrap:wrap!important;
+}
+.admin-audit-card .audit-filter-minimal button{
+  min-height:32px!important;
+  padding:6px 10px!important;
+  border-radius:7px!important;
+  font-size:11px!important;
+}
+.admin-audit-card .audit-list{
+  height:500px!important;
+  max-height:500px!important;
+  padding:2px 3px 5px 0!important;
+  gap:5px!important;
+  scrollbar-color:#b8c5cf transparent;
+}
+.admin-audit-card .audit-row{
+  min-height:54px!important;
+  padding:8px 11px!important;
+  background:#f8fafb!important;
+  border-color:#d6e0e7!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+}
+.admin-audit-card .audit-row:hover{
+  background:#f3f7f9!important;
+  border-color:#c7d6e0!important;
+  box-shadow:0 2px 8px rgba(31,55,75,.04)!important;
+}
+.admin-audit-card .audit-row-top strong{font-size:12px!important;color:#2d4358!important}
+.admin-audit-card .audit-row-meta{font-size:10px!important;color:#748394!important}
+.admin-audit-card .audit-details summary{font-size:10px!important;color:#376b91!important}
+.admin-audit-card .audit-details pre{background:#edf2f5!important;color:#536474!important;border:1px solid #d8e1e7!important}
+
+/* Search and ordinary action buttons share the same quiet geometry. */
+.search button,.doc-actions button,.admin-actions button{border-radius:8px!important}
+
+@media(max-width:650px){
+  .admin-audit-card .audit-list{height:440px!important;max-height:440px!important}
+}
+
+
+/* v5.40 — canonical collapsible form panels. The action row belongs to the form body and
+   must never remain visible while the panel is collapsed. */
+html body .kedo-form-panel.is-collapsed > .kedo-form-panel-body,
+html body .kedo-form-panel-body[hidden]{
+  display:none !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  overflow:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+html body .kedo-form-panel:not(.is-collapsed) > .kedo-form-panel-body{
+  display:block !important;
+  height:auto !important;
+  max-height:none !important;
+  overflow:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+.kedo-form-panel-head.kedo-collapsible-head{
+  width:100% !important;
+  box-sizing:border-box !important;
+  min-height:60px !important;
+  padding:10px 14px !important;
+  margin:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+  background:#f7fafc !important;
+  border:0 !important;
+  border-radius:11px !important;
+}
+.kedo-form-panel.is-collapsed > .kedo-form-panel-head{
+  border-radius:11px !important;
+}
+.kedo-form-panel:not(.is-collapsed) > .kedo-form-panel-head{
+  border-bottom:1px solid #e2e9ef !important;
+  border-radius:11px 11px 0 0 !important;
+}
+.kedo-form-panel-head.kedo-collapsible-head:hover{background:#f2f7fa !important}
+.kedo-form-panel-head .kedo-form-icon{
+  flex:0 0 32px !important;
+  width:32px !important; height:32px !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  border-radius:8px !important;
+  background:#e8f1f6 !important; color:#39769d !important;
+}
+.kedo-form-panel-head .kedo-form-chevron{
+  flex:0 0 auto !important;
+  font-size:15px !important; color:#718494 !important;
+  transition:transform .18s ease !important;
+}
+.kedo-form-panel.is-collapsed .kedo-form-chevron{transform:rotate(-90deg) !important}
+.kedo-form-panel:not(.is-collapsed) .kedo-form-chevron{transform:rotate(0deg) !important}
+.kedo-form-panel-body{box-sizing:border-box !important}
+.kedo-form-panel-body > .doc-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:7px !important;
+  margin-top:14px !important;
+  padding-top:12px !important;
+  border-top:1px solid #e7edf2 !important;
+}
+.kedo-form-panel-body > .doc-actions button{margin:0 !important}
+html body .kedo-order-panel .kedo-form-panel-body > .doc-actions{justify-content:flex-end !important; width:100% !important; box-sizing:border-box !important}
+html body .kedo-upload-card .kedo-form-panel-body > .doc-actions{justify-content:flex-end !important; width:100% !important; box-sizing:border-box !important}
+
+/* Softer working background: less glare without making the interface grey. */
+html,body{background:#edf2f5 !important}
+.card,.kedo-form-panel,.stat,.admin-stat,.profile-card,.profile-identity,.profile-shortcuts,.branch-card,.task-create-shell{
+  background:#fbfcfd !important;
+}
+
+
+/* =========================================================
+   Internal KEDO 5.41 — native form panels
+   Document/order upload uses <details>/<summary>. This removes the fragile
+   JS/CSS toggle race that previously left only the action button visible.
+   ========================================================= */
+html body details.kedo-form-panel{
+  overflow:hidden !important;
+  padding:0 !important;
+}
+html body details.kedo-form-panel > summary.kedo-form-panel-head{
+  list-style:none !important;
+  user-select:none !important;
+}
+html body details.kedo-form-panel > summary.kedo-form-panel-head::-webkit-details-marker{
+  display:none !important;
+}
+html body details.kedo-form-panel:not([open]) > .kedo-form-panel-body{
+  display:none !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+html body details.kedo-form-panel[open] > .kedo-form-panel-body{
+  display:block !important;
+  height:auto !important;
+  max-height:none !important;
+  overflow:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  padding:12px 14px 14px !important;
+}
+html body details.kedo-form-panel[open] > summary.kedo-form-panel-head{
+  border-bottom:1px solid #e1e8ee !important;
+  border-radius:11px 11px 0 0 !important;
+}
+html body details.kedo-form-panel:not([open]) > summary.kedo-form-panel-head{
+  border-radius:11px !important;
+}
+html body details.kedo-form-panel > summary .kedo-form-chevron{
+  transform:rotate(-90deg) !important;
+}
+html body details.kedo-form-panel[open] > summary .kedo-form-chevron{
+  transform:rotate(0deg) !important;
+}
+
+/* KEDO 5.44 — restore the original order form structure. The action row stays INSIDE the card. */
+html body .kedo-order-panel .doc-actions{
+  justify-content:flex-start !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  margin-top:14px !important;
+  padding-top:12px !important;
+  border-top:1px solid #e7edf2 !important;
+}
+html body .kedo-order-panel .doc-actions button{margin:0 !important}
+html body .kedo-order-panel.is-collapsed>.kedo-form-panel-body{
+  display:none !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  overflow:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+html body .kedo-order-panel:not(.is-collapsed)>.kedo-form-panel-body{
+  display:block !important;
+  height:auto !important;
+  max-height:none !important;
+  opacity:1 !important;
+  overflow:visible !important;
+  pointer-events:auto !important;
+}
+
+/* ---------- Document detail: structured card + original/signed copies ---------- */
+.document-detail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:16px 0 12px}
+.document-detail-subtitle{margin-top:5px;color:#718396;font-size:13px}
+.document-detail-card{padding:18px!important}
+.detail-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.detail-section-head h2{margin:2px 0 0!important;font-size:18px!important}
+.document-status-chip,.document-file-count{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border-radius:8px;background:#edf4f8;color:#547087;font-size:11px;font-weight:700}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;border:1px solid #e0e8ef;border-radius:10px;overflow:hidden;background:#e0e8ef}
+.detail-grid>div{background:#fff;padding:11px 12px;min-width:0}
+.detail-grid span{display:block;color:#7a8d9f;font-size:10px;margin-bottom:3px}
+.detail-grid strong{display:block;color:#29425b;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+.file-copy-list{display:grid;gap:8px}
+.file-copy{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid #dce6ee;border-radius:10px;background:#fbfdff;min-width:0}
+.file-copy-signed{background:#f7fbf9;border-color:#cfe4d8}
+.file-copy-approved{background:#f7fbf8;border-color:#b9dfc7}
+.file-copy-pending{background:#f8fafc;color:#77899a}
+.file-copy-icon{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;border-radius:9px;background:#edf4f8;color:#1769aa;font-size:10px;font-weight:800}
+.file-copy-signed .file-copy-icon{background:#e7f5ec;color:#18794e}
+.file-copy-approved .file-copy-icon{background:#e7f5ec;color:#267344}
+.file-copy-main{min-width:0;flex:1}
+.file-copy-title{font-size:12px;font-weight:800;color:#29425b}
+.file-copy-name{margin-top:2px;font-size:12px;color:#405b73;overflow-wrap:anywhere}
+.file-copy-meta{margin-top:3px;font-size:10px;color:#8192a2;line-height:1.35;overflow-wrap:anywhere}
+.file-copy-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:5px;flex:0 0 auto}
+.file-copy-actions button{min-height:31px!important;padding:6px 9px!important;font-size:11px!important}
+.document-detail-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;padding:0 2px 15px}
+.signature-info-box{border:1px solid #dce7ee;border-radius:10px;background:#fbfdff;padding:12px}
+.signature-info-ok{font-size:12px;font-weight:800;color:#18794e;margin-bottom:11px}
+.signature-detail-grid{margin-top:0}
+.signature-detail-grid>div{padding:9px 10px}
+.break-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px!important;word-break:break-all}
+.signature-history{display:grid;gap:7px;margin-top:10px}
+.signature-record{padding:10px 11px;border:1px solid #dce6ee;border-radius:9px;background:#fff}
+.signature-record-title{font-size:11px;font-weight:800;color:#1769aa;margin-bottom:7px}
+.signature-record-grid{display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 10px;font-size:11px}
+.signature-record-grid span{color:#8192a2}.signature-record-grid strong{color:#334e66}
+.signature-record .fingerprint{margin-top:7px;padding-top:6px;border-top:1px solid #edf2f5;font-size:9px;line-height:1.35;word-break:break-all;color:#72869a;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.document-detail-lower{gap:12px!important;margin-top:12px!important}
+@media(max-width:760px){.document-detail-head{align-items:flex-start;flex-direction:column}.detail-grid{grid-template-columns:1fr}.file-copy{align-items:flex-start;flex-wrap:wrap}.file-copy-actions{width:100%;justify-content:flex-start}.document-detail-actions{justify-content:flex-start}.signature-record-grid{grid-template-columns:1fr}}
+
+
+/* Internal KEDO 5.51.4 — no login flash during session bootstrap */
+html.kedo-booting #loginPage,
+html.kedo-booting #app{
+  visibility:hidden!important;
+}
+html.kedo-booting::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:var(--kedo-bg,#eef2f6);
+}
+html.kedo-booting::after{
+  content:"Внутренний КЭДО";
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:100000;
+  color:var(--kedo-heading,#1d4268);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+
+
+/* Internal KEDO 5.51.4 — messenger final visual alignment */
+.chat-shell-pro{
+  width:100%!important;
+  max-width:none!important;
+  height:calc(100vh - 155px)!important;
+  min-height:560px!important;
+  grid-template-columns:300px minmax(0,1fr)!important;
+  border-radius:14px!important;
+  border:1px solid var(--kedo-border,#d5e0e9)!important;
+  background:var(--kedo-surface,#fbfcfd)!important;
+  box-shadow:var(--kedo-shadow,0 4px 18px rgba(35,55,75,.055))!important;
+}
+.chat-sidebar-pro{
+  background:var(--kedo-surface-soft,#f4f7fa)!important;
+  border-right:1px solid var(--kedo-border,#d5e0e9)!important;
+}
+.chat-window-pro{
+  background:var(--kedo-bg,#eef2f6)!important;
+}
+.chat-sidebar-head{
+  background:transparent!important;
+  padding:15px 14px 9px!important;
+}
+.chat-sidebar-head h1{
+  font-size:20px!important;
+  line-height:1.2!important;
+  color:var(--kedo-heading,#1d4268)!important;
+}
+.chat-live-dot{
+  width:8px!important;height:8px!important;
+  border-radius:50%!important;
+  background:#45b47a!important;
+  box-shadow:0 0 0 4px rgba(69,180,122,.10)!important;
+}
+.chat-sidebar-subtitle{
+  color:var(--kedo-muted,#718197)!important;
+  font-size:10px!important;
+}
+.chat-sidebar-tools{padding:0 11px 7px!important}
+.chat-icon-button{
+  width:32px!important;height:32px!important;min-height:32px!important;
+  border-radius:8px!important;
+  border:1px solid var(--kedo-border-strong,#c5d3df)!important;
+  background:var(--kedo-surface,#fbfcfd)!important;
+  color:#5c7286!important;
+  box-shadow:none!important;
+}
+.chat-icon-button:hover{
+  background:#eef4f8!important;color:var(--kedo-primary,#246fa8)!important;
+}
+.chat-filter-tabs{
+  padding:0 10px 8px!important;
+  gap:4px!important;
+}
+.chat-filter-tabs button{
+  min-height:29px!important;
+  border-radius:8px!important;
+  border:1px solid var(--kedo-border,#d5e0e9)!important;
+  background:#fafdff!important;
+  color:#64778a!important;
+  font-size:9px!important;
+}
+.chat-filter-tabs button.active{
+  background:#e9f2f8!important;
+  color:var(--kedo-primary,#246fa8)!important;
+  border-color:#c2d7e5!important;
+}
+.chat-contact-pro{
+  padding:9px 11px!important;
+  border-bottom:1px solid #e6edf2!important;
+}
+.chat-contact-pro.active{
+  background:#edf5fa!important;
+  box-shadow:inset 3px 0 0 var(--kedo-primary,#246fa8)!important;
+}
+.chat-avatar{
+  background:#e7f0f6!important;
+  color:#2d6f9d!important;
+}
+.chat-head-pro{
+  background:var(--kedo-surface,#fbfcfd)!important;
+  border-bottom:1px solid var(--kedo-border,#d5e0e9)!important;
+  height:66px!important;min-height:66px!important;
+  padding:10px 13px!important;
+}
+.chat-head-pro strong{color:var(--kedo-heading,#1d4268)!important;font-size:14px!important}
+.chat-tool-button,.chat-sound-button{
+  width:31px!important;height:31px!important;min-height:31px!important;
+  border-radius:8px!important;
+  border:1px solid var(--kedo-border-strong,#c5d3df)!important;
+  background:#f9fbfc!important;
+  color:#657b8d!important;
+}
+.chat-messages-pro{
+  background:var(--kedo-bg,#eef2f6)!important;
+  padding:12px 14px!important;
+}
+.chat-message{
+  max-width:min(72%,520px)!important;
+  box-shadow:none!important;
+}
+.chat-message.incoming{
+  background:#f9fbfc!important;
+  border:1px solid #dfe8ef!important;
+  color:var(--kedo-text,#263548)!important;
+}
+.chat-message.outgoing{
+  background:#2d78b2!important;
+  color:#fff!important;
+  border:1px solid #286eaa!important;
+}
+.chat-message .chat-time{opacity:.72!important}
+.chat-day-separator span{
+  background:#e4ecf2!important;
+  color:#718396!important;
+  border:1px solid #d5e0e8!important;
+}
+.chat-composer-pro{
+  background:var(--kedo-surface,#fbfcfd)!important;
+  border-top:1px solid var(--kedo-border,#d5e0e9)!important;
+  padding:9px!important;
+}
+.chat-composer-pro textarea{
+  min-height:38px!important;
+  background:#f9fbfc!important;
+  border:1px solid var(--kedo-border-strong,#c5d3df)!important;
+  border-radius:10px!important;
+}
+.chat-send-button{
+  min-width:90px!important;
+  min-height:38px!important;
+  border-radius:9px!important;
+  background:var(--kedo-primary,#246fa8)!important;
+}
+.chat-send-button:hover{background:var(--kedo-primary-hover,#1e628f)!important}
+.chat-drop-active{background:#eef6fb!important}
+.chat-findbar{
+  background:var(--kedo-surface-soft,#f4f7fa)!important;
+  border-bottom:1px solid var(--kedo-border,#d5e0e9)!important;
+}
+.chat-findbar input{
+  background:#fbfcfd!important;
+  border-color:var(--kedo-border-strong,#c5d3df)!important;
+}
+.chat-load-older{
+  color:var(--kedo-primary,#246fa8)!important;
+  border-color:#c8d8e4!important;
+  background:#f9fbfc!important;
+}
+.chat-new-messages{
+  background:#f9fbfc!important;
+  color:var(--kedo-primary,#246fa8)!important;
+  border-color:#c7d8e4!important;
+  box-shadow:0 6px 18px rgba(35,55,75,.08)!important;
+}
+@media(max-width:900px){
+  .chat-shell-pro{grid-template-columns:280px minmax(0,1fr)!important}
+}
+@media(max-width:700px){
+  .chat-shell-pro{height:calc(100vh - 120px)!important;min-height:520px!important}
+}
+
+
+/* ==========================================================
+   Internal KEDO 5.51.5 — Messenger visual refinement
+   ========================================================== */
+
+.chat-shell-pro{
+  width:min(100%,1280px)!important;
+  height:calc(100vh - 150px)!important;
+  min-height:600px!important;
+  margin:0 auto!important;
+  grid-template-columns:320px minmax(0,1fr)!important;
+  border:1px solid #d9e4ec!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  background:#f8fafc!important;
+  box-shadow:0 8px 26px rgba(34,55,73,.06)!important;
+}
+
+.chat-sidebar-pro{
+  background:#f7fafc!important;
+  border-right:1px solid #dde7ee!important;
+}
+
+.chat-window-pro{
+  background:#eef3f7!important;
+  min-width:0!important;
+}
+
+.chat-sidebar-head{
+  padding:18px 18px 12px!important;
+}
+
+.chat-sidebar-head h1{
+  margin:1px 0 2px!important;
+  font-size:22px!important;
+  font-weight:650!important;
+  letter-spacing:-.01em!important;
+}
+
+.chat-sidebar-subtitle{
+  font-size:11px!important;
+  color:#8091a0!important;
+}
+
+.chat-sidebar-tools{
+  padding:0 16px 10px!important;
+  justify-content:flex-end!important;
+}
+
+.chat-icon-button{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:10px!important;
+  border:1px solid #d6e2ea!important;
+  background:#fff!important;
+  color:#688095!important;
+  box-shadow:0 1px 2px rgba(20,45,65,.03)!important;
+}
+
+.chat-icon-button:hover{
+  background:#f3f7fa!important;
+  color:#2a6f9f!important;
+  border-color:#bfd4e2!important;
+}
+
+.chat-filter-tabs{
+  padding:0 16px 10px!important;
+  gap:6px!important;
+}
+
+.chat-filter-tabs button{
+  min-height:31px!important;
+  border-radius:9px!important;
+  border:1px solid #d8e4eb!important;
+  background:#fff!important;
+  color:#6b7e90!important;
+  font-size:10px!important;
+  font-weight:600!important;
+  transition:background .15s ease,border-color .15s ease,color .15s ease!important;
+}
+
+.chat-filter-tabs button.active{
+  background:#edf5f9!important;
+  color:#2a6f9f!important;
+  border-color:#c7dbe7!important;
+}
+
+.chat-contacts-pro{
+  padding:0 8px 12px!important;
+}
+
+.chat-contact-pro{
+  margin:2px 2px!important;
+  padding:11px 12px!important;
+  min-height:70px!important;
+  border:1px solid transparent!important;
+  border-radius:12px!important;
+  background:transparent!important;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease!important;
+}
+
+.chat-contact-pro:hover{
+  background:#fff!important;
+  border-color:#e1eaf0!important;
+}
+
+.chat-contact-pro.active{
+  background:#fff!important;
+  border-color:#d8e6ee!important;
+  box-shadow:0 3px 12px rgba(39,73,98,.055)!important;
+}
+
+.chat-contact-top strong{
+  font-size:12px!important;
+  font-weight:650!important;
+  color:#2a4054!important;
+}
+
+.chat-contact-sub small,
+.chat-contact-preview{
+  color:#8293a1!important;
+  font-size:10px!important;
+}
+
+.chat-contact-preview{
+  margin-top:4px!important;
+  color:#657a8d!important;
+}
+
+.chat-avatar{
+  width:38px!important;
+  height:38px!important;
+  flex:0 0 38px!important;
+  border-radius:12px!important;
+  background:#eaf2f7!important;
+  color:#2a709e!important;
+  font-size:12px!important;
+  font-weight:700!important;
+}
+
+.chat-head-pro{
+  height:74px!important;
+  min-height:74px!important;
+  padding:12px 18px!important;
+  background:#fbfcfd!important;
+  border-bottom:1px solid #dfe8ee!important;
+}
+
+.chat-head-pro .chat-avatar.large{
+  width:42px!important;
+  height:42px!important;
+  flex-basis:42px!important;
+  border-radius:13px!important;
+}
+
+.chat-head-pro strong{
+  font-size:15px!important;
+  font-weight:650!important;
+  color:#2a4054!important;
+}
+
+.chat-head-pro .muted{
+  margin-top:2px!important;
+  color:#82929f!important;
+  font-size:11px!important;
+}
+
+.chat-tool-button,.chat-sound-button{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+  border:1px solid #d5e2ea!important;
+  background:#fff!important;
+  color:#657b8d!important;
+  box-shadow:0 1px 2px rgba(20,45,65,.03)!important;
+}
+
+.chat-tool-button:hover,.chat-sound-button:hover{
+  background:#f4f8fa!important;
+}
+
+.chat-messages-pro{
+  padding:18px 20px 14px!important;
+  background:#eef3f7!important;
+}
+
+.chat-day-separator{
+  margin:12px 0 10px!important;
+}
+
+.chat-day-separator span{
+  padding:5px 10px!important;
+  border:1px solid #d9e5eb!important;
+  border-radius:999px!important;
+  background:#f8fafc!important;
+  color:#7f909e!important;
+  font-size:9px!important;
+  font-weight:650!important;
+  box-shadow:none!important;
+}
+
+.chat-message{
+  margin-bottom:7px!important;
+  max-width:min(68%,560px)!important;
+}
+
+.chat-message.incoming{
+  background:#fff!important;
+  border:1px solid #dfe8ee!important;
+  border-radius:14px 14px 14px 5px!important;
+  box-shadow:0 2px 7px rgba(35,55,75,.035)!important;
+}
+
+.chat-message.outgoing{
+  background:#2b76ad!important;
+  border:1px solid #2a70a5!important;
+  border-radius:14px 14px 5px 14px!important;
+  box-shadow:0 2px 7px rgba(35,75,105,.08)!important;
+}
+
+.chat-message .chat-time{
+  font-size:9px!important;
+  opacity:.6!important;
+}
+
+.chat-file-preview{
+  gap:6px!important;
+}
+
+.chat-file-chip{
+  border:1px solid #d9e5ec!important;
+  border-radius:9px!important;
+  background:#f8fbfd!important;
+}
+
+.chat-load-older{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  display:block!important;
+  width:max-content!important;
+  min-width:0!important;
+  margin:10px auto 12px!important;
+  padding:7px 13px!important;
+  border:1px solid #d3e0e8!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#4f7088!important;
+  font-family:inherit!important;
+  font-size:10px!important;
+  font-weight:600!important;
+  line-height:1.2!important;
+  cursor:pointer!important;
+  box-shadow:0 2px 8px rgba(35,55,75,.035)!important;
+}
+
+.chat-load-older:hover{
+  background:#f5f9fb!important;
+  border-color:#bdd2df!important;
+  color:#2a6f9f!important;
+}
+
+.chat-load-older:active{
+  transform:translateY(1px)!important;
+}
+
+.chat-new-messages{
+  border-radius:999px!important;
+  border:1px solid #c9dbe5!important;
+  background:#fff!important;
+  color:#2a6f9f!important;
+  padding:7px 12px!important;
+  font-size:10px!important;
+  box-shadow:0 7px 18px rgba(35,55,75,.08)!important;
+}
+
+.chat-composer-pro{
+  background:#fbfcfd!important;
+  border-top:1px solid #dfe8ee!important;
+  padding:11px 14px!important;
+}
+
+.chat-compose-main{
+  min-width:0!important;
+}
+
+.chat-composer-pro textarea{
+  min-height:40px!important;
+  border:1px solid #d3e0e8!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:inset 0 1px 1px rgba(35,55,75,.02)!important;
+}
+
+.chat-composer-pro textarea:focus{
+  border-color:#aac6d8!important;
+  box-shadow:0 0 0 3px rgba(42,111,159,.07)!important;
+}
+
+.chat-attach-button{
+  width:38px!important;
+  height:38px!important;
+  min-height:38px!important;
+  border-radius:10px!important;
+  border:1px solid #d4e1e9!important;
+  background:#fff!important;
+  color:#5f778a!important;
+}
+
+.chat-send-button{
+  min-width:94px!important;
+  min-height:40px!important;
+  border-radius:10px!important;
+  box-shadow:0 2px 6px rgba(35,85,120,.09)!important;
+}
+
+.chat-compose-hint{
+  font-size:9px!important;
+  color:#8b99a6!important;
+}
+
+.chat-findbar{
+  background:#f8fafc!important;
+  border-bottom:1px solid #dfe8ee!important;
+}
+
+.chat-findbar input{
+  border:1px solid #d4e1e9!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+.chat-sidebar-pro::-webkit-scrollbar,
+.chat-messages-pro::-webkit-scrollbar,
+.chat-window-pro *::-webkit-scrollbar{
+  width:8px!important;
+  height:8px!important;
+}
+.chat-sidebar-pro::-webkit-scrollbar-thumb,
+.chat-messages-pro::-webkit-scrollbar-thumb,
+.chat-window-pro *::-webkit-scrollbar-thumb{
+  background:#c9d5de!important;
+  border-radius:999px!important;
+}
+.chat-sidebar-pro::-webkit-scrollbar-track,
+.chat-messages-pro::-webkit-scrollbar-track,
+.chat-window-pro *::-webkit-scrollbar-track{
+  background:transparent!important;
+}
+
+@media(max-width:900px){
+  .chat-shell-pro{
+    width:100%!important;
+    grid-template-columns:280px minmax(0,1fr)!important;
+    border-radius:14px!important;
+  }
+}
+
+/* ==========================================================
+   Internal KEDO 5.51.5 — Messenger visual refinement
+   ========================================================== */
+
+.chat-shell-pro{
+  width:min(100%,1280px)!important;
+  height:calc(100vh - 150px)!important;
+  min-height:600px!important;
+  margin:0 auto!important;
+  grid-template-columns:320px minmax(0,1fr)!important;
+  border:1px solid #d9e4ec!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  background:#f8fafc!important;
+  box-shadow:0 8px 26px rgba(34,55,73,.06)!important;
+}
+
+.chat-sidebar-pro{
+  background:#f7fafc!important;
+  border-right:1px solid #dde7ee!important;
+}
+
+.chat-window-pro{
+  background:#eef3f7!important;
+  min-width:0!important;
+}
+
+.chat-sidebar-head{
+  padding:18px 18px 12px!important;
+}
+
+.chat-sidebar-head h1{
+  margin:1px 0 2px!important;
+  font-size:22px!important;
+  font-weight:650!important;
+  letter-spacing:-.01em!important;
+}
+
+.chat-sidebar-subtitle{
+  font-size:11px!important;
+  color:#8091a0!important;
+}
+
+.chat-sidebar-tools{
+  padding:0 16px 10px!important;
+  justify-content:flex-end!important;
+}
+
+.chat-icon-button{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:10px!important;
+  border:1px solid #d6e2ea!important;
+  background:#fff!important;
+  color:#688095!important;
+  box-shadow:0 1px 2px rgba(20,45,65,.03)!important;
+}
+
+.chat-icon-button:hover{
+  background:#f3f7fa!important;
+  color:#2a6f9f!important;
+  border-color:#bfd4e2!important;
+}
+
+.chat-filter-tabs{
+  padding:0 16px 10px!important;
+  gap:6px!important;
+}
+
+.chat-filter-tabs button{
+  min-height:31px!important;
+  border-radius:9px!important;
+  border:1px solid #d8e4eb!important;
+  background:#fff!important;
+  color:#6b7e90!important;
+  font-size:10px!important;
+  font-weight:600!important;
+  transition:background .15s ease,border-color .15s ease,color .15s ease!important;
+}
+
+.chat-filter-tabs button.active{
+  background:#edf5f9!important;
+  color:#2a6f9f!important;
+  border-color:#c7dbe7!important;
+}
+
+.chat-contacts-pro{
+  padding:0 8px 12px!important;
+}
+
+.chat-contact-pro{
+  margin:2px 2px!important;
+  padding:11px 12px!important;
+  min-height:70px!important;
+  border:1px solid transparent!important;
+  border-radius:12px!important;
+  background:transparent!important;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease!important;
+}
+
+.chat-contact-pro:hover{
+  background:#fff!important;
+  border-color:#e1eaf0!important;
+}
+
+.chat-contact-pro.active{
+  background:#fff!important;
+  border-color:#d8e6ee!important;
+  box-shadow:0 3px 12px rgba(39,73,98,.055)!important;
+}
+
+.chat-contact-top strong{
+  font-size:12px!important;
+  font-weight:650!important;
+  color:#2a4054!important;
+}
+
+.chat-contact-sub small,
+.chat-contact-preview{
+  color:#8293a1!important;
+  font-size:10px!important;
+}
+
+.chat-contact-preview{
+  margin-top:4px!important;
+  color:#657a8d!important;
+}
+
+.chat-avatar{
+  width:38px!important;
+  height:38px!important;
+  flex:0 0 38px!important;
+  border-radius:12px!important;
+  background:#eaf2f7!important;
+  color:#2a709e!important;
+  font-size:12px!important;
+  font-weight:700!important;
+}
+
+.chat-head-pro{
+  height:74px!important;
+  min-height:74px!important;
+  padding:12px 18px!important;
+  background:#fbfcfd!important;
+  border-bottom:1px solid #dfe8ee!important;
+}
+
+.chat-head-pro .chat-avatar.large{
+  width:42px!important;
+  height:42px!important;
+  flex-basis:42px!important;
+  border-radius:13px!important;
+}
+
+.chat-head-pro strong{
+  font-size:15px!important;
+  font-weight:650!important;
+  color:#2a4054!important;
+}
+
+.chat-head-pro .muted{
+  margin-top:2px!important;
+  color:#82929f!important;
+  font-size:11px!important;
+}
+
+.chat-tool-button,.chat-sound-button{
+  width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  border-radius:9px!important;
+  border:1px solid #d5e2ea!important;
+  background:#fff!important;
+  color:#657b8d!important;
+  box-shadow:0 1px 2px rgba(20,45,65,.03)!important;
+}
+
+.chat-tool-button:hover,.chat-sound-button:hover{
+  background:#f4f8fa!important;
+}
+
+.chat-messages-pro{
+  padding:18px 20px 14px!important;
+  background:#eef3f7!important;
+}
+
+.chat-day-separator{
+  margin:12px 0 10px!important;
+}
+
+.chat-day-separator span{
+  padding:5px 10px!important;
+  border:1px solid #d9e5eb!important;
+  border-radius:999px!important;
+  background:#f8fafc!important;
+  color:#7f909e!important;
+  font-size:9px!important;
+  font-weight:650!important;
+  box-shadow:none!important;
+}
+
+.chat-message{
+  margin-bottom:7px!important;
+  max-width:min(68%,560px)!important;
+}
+
+.chat-message.incoming{
+  background:#fff!important;
+  border:1px solid #dfe8ee!important;
+  border-radius:14px 14px 14px 5px!important;
+  box-shadow:0 2px 7px rgba(35,55,75,.035)!important;
+}
+
+.chat-message.outgoing{
+  background:#2b76ad!important;
+  border:1px solid #2a70a5!important;
+  border-radius:14px 14px 5px 14px!important;
+  box-shadow:0 2px 7px rgba(35,75,105,.08)!important;
+}
+
+.chat-message .chat-time{
+  font-size:9px!important;
+  opacity:.6!important;
+}
+
+.chat-file-preview{
+  gap:6px!important;
+}
+
+.chat-file-chip{
+  border:1px solid #d9e5ec!important;
+  border-radius:9px!important;
+  background:#f8fbfd!important;
+}
+
+.chat-load-older{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  display:block!important;
+  width:max-content!important;
+  min-width:0!important;
+  margin:10px auto 12px!important;
+  padding:7px 13px!important;
+  border:1px solid #d3e0e8!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#4f7088!important;
+  font-family:inherit!important;
+  font-size:10px!important;
+  font-weight:600!important;
+  line-height:1.2!important;
+  cursor:pointer!important;
+  box-shadow:0 2px 8px rgba(35,55,75,.035)!important;
+}
+
+.chat-load-older:hover{
+  background:#f5f9fb!important;
+  border-color:#bdd2df!important;
+  color:#2a6f9f!important;
+}
+
+.chat-load-older:active{
+  transform:translateY(1px)!important;
+}
+
+.chat-new-messages{
+  border-radius:999px!important;
+  border:1px solid #c9dbe5!important;
+  background:#fff!important;
+  color:#2a6f9f!important;
+  padding:7px 12px!important;
+  font-size:10px!important;
+  box-shadow:0 7px 18px rgba(35,55,75,.08)!important;
+}
+
+.chat-composer-pro{
+  background:#fbfcfd!important;
+  border-top:1px solid #dfe8ee!important;
+  padding:11px 14px!important;
+}
+
+.chat-compose-main{
+  min-width:0!important;
+}
+
+.chat-composer-pro textarea{
+  min-height:40px!important;
+  border:1px solid #d3e0e8!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:inset 0 1px 1px rgba(35,55,75,.02)!important;
+}
+
+.chat-composer-pro textarea:focus{
+  border-color:#aac6d8!important;
+  box-shadow:0 0 0 3px rgba(42,111,159,.07)!important;
+}
+
+.chat-attach-button{
+  width:38px!important;
+  height:38px!important;
+  min-height:38px!important;
+  border-radius:10px!important;
+  border:1px solid #d4e1e9!important;
+  background:#fff!important;
+  color:#5f778a!important;
+}
+
+.chat-send-button{
+  min-width:94px!important;
+  min-height:40px!important;
+  border-radius:10px!important;
+  box-shadow:0 2px 6px rgba(35,85,120,.09)!important;
+}
+
+.chat-compose-hint{
+  font-size:9px!important;
+  color:#8b99a6!important;
+}
+
+.chat-findbar{
+  background:#f8fafc!important;
+  border-bottom:1px solid #dfe8ee!important;
+}
+
+.chat-findbar input{
+  border:1px solid #d4e1e9!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+.chat-sidebar-pro::-webkit-scrollbar,
+.chat-messages-pro::-webkit-scrollbar,
+.chat-window-pro *::-webkit-scrollbar{
+  width:8px!important;
+  height:8px!important;
+}
+.chat-sidebar-pro::-webkit-scrollbar-thumb,
+.chat-messages-pro::-webkit-scrollbar-thumb,
+.chat-window-pro *::-webkit-scrollbar-thumb{
+  background:#c9d5de!important;
+  border-radius:999px!important;
+}
+.chat-sidebar-pro::-webkit-scrollbar-track,
+.chat-messages-pro::-webkit-scrollbar-track,
+.chat-window-pro *::-webkit-scrollbar-track{
+  background:transparent!important;
+}
+
+@media(max-width:900px){
+  .chat-shell-pro{
+    width:100%!important;
+    grid-template-columns:280px minmax(0,1fr)!important;
+    border-radius:14px!important;
+  }
+}
+
+/* Internal KEDO 5.51.7 — exact messenger layout */
+.chat-shell{
+  display:grid!important;
+  grid-template-columns:320px minmax(0,1fr)!important;
+  width:100%!important;
+  min-height:620px!important;
+  height:calc(100vh - 150px)!important;
+  margin:0!important;
+  border:1px solid #d5e0e9!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  background:#fbfcfd!important;
+  box-shadow:0 4px 18px rgba(35,55,75,.055)!important;
+}
+.chat-sidebar{
+  min-width:0!important;
+  background:#f7fafc!important;
+  border-right:1px solid #dbe5ec!important;
+}
+.chat-window{
+  min-width:0!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  background:#eef3f7!important;
+}
+.chat-head{
+  flex:0 0 66px!important;
+  height:66px!important;
+  min-height:66px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:10px 14px!important;
+  background:#fbfcfd!important;
+  border-bottom:1px solid #dce6ed!important;
+}
+.chat-head-person{
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+.chat-head-person strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font-size:14px!important;
+  font-weight:650!important;
+  color:#29435d!important;
+}
+.chat-head-person .muted{
+  margin-top:2px!important;
+  font-size:10px!important;
+  color:#81909f!important;
+}
+.chat-head-actions-pro{
+  margin-left:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:5px!important;
+  flex:0 0 auto!important;
+}
+.chat-head-tool{
+  width:32px!important;
+  height:32px!important;
+  min-width:32px!important;
+  min-height:32px!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d1dee7!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#60788b!important;
+  line-height:1!important;
+  font-size:15px!important;
+  cursor:pointer!important;
+  box-shadow:0 1px 2px rgba(25,50,70,.025)!important;
+}
+.chat-head-tool:hover,.chat-head-tool.active{
+  background:#edf5fa!important;
+  color:#236d9e!important;
+  border-color:#bfd5e3!important;
+}
+.chat-findbar-pro{
+  flex:0 0 46px!important;
+  min-height:46px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  padding:6px 12px!important;
+  background:#f7fafc!important;
+  border-bottom:1px solid #dfe8ee!important;
+}
+.chat-findbar-pro[hidden]{display:none!important}
+.chat-find-icon{
+  flex:0 0 auto!important;
+  color:#7890a2!important;
+  font-size:16px!important;
+}
+.chat-findbar-pro input{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  height:32px!important;
+  margin:0!important;
+  padding:6px 10px!important;
+  border:1px solid #d2dfe8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  font:inherit!important;
+  font-size:12px!important;
+}
+.chat-find-close{
+  width:30px!important;
+  height:30px!important;
+  min-width:30px!important;
+  min-height:30px!important;
+  padding:0!important;
+  border:1px solid #d2dfe8!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#708395!important;
+  cursor:pointer!important;
+}
+.chat-messages{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow-y:auto!important;
+  padding:14px 16px!important;
+  background:#eef3f7!important;
+}
+.chat-composer{
+  flex:0 0 auto!important;
+  width:100%!important;
+  min-height:76px!important;
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr) 96px!important;
+  grid-template-areas:"attach main send"!important;
+  align-items:center!important;
+  gap:9px!important;
+  padding:10px 12px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  background:#fbfcfd!important;
+  border-top:1px solid #dce6ed!important;
+}
+.chat-composer .chat-attach-wrap{
+  grid-area:attach!important;
+  width:42px!important;
+  height:42px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.chat-composer .chat-attach-button{
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  min-height:40px!important;
+  padding:0!important;
+  margin:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d2e0e9!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  color:#2a6f9f!important;
+  font-size:20px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+.chat-composer .chat-compose-main{
+  grid-area:main!important;
+  width:100%!important;
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:3px!important;
+}
+.chat-composer #chatInput{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:40px!important;
+  max-height:120px!important;
+  margin:0!important;
+  padding:9px 12px!important;
+  border:1px solid #ccd9e3!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  resize:none!important;
+  font:inherit!important;
+  font-size:13px!important;
+  line-height:20px!important;
+  box-sizing:border-box!important;
+}
+.chat-composer #chatInput:focus{
+  border-color:#91b6cf!important;
+  box-shadow:0 0 0 3px rgba(36,111,168,.08)!important;
+  outline:none!important;
+}
+.chat-compose-hint{
+  min-height:11px!important;
+  margin:0 2px!important;
+  padding:0!important;
+  font-size:9px!important;
+  line-height:11px!important;
+  color:#8b99a6!important;
+}
+.chat-composer .chat-send-button{
+  grid-area:send!important;
+  width:96px!important;
+  min-width:96px!important;
+  height:40px!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:0 12px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:10px!important;
+  font-size:12px!important;
+  font-weight:650!important;
+}
+.kedo-chat-hit{
+  outline:2px solid rgba(36,111,168,.16)!important;
+  outline-offset:2px!important;
+  background:#fff9d8!important;
+  border-radius:8px!important;
+}
+@media(max-width:800px){
+  .chat-shell{
+    grid-template-columns:280px minmax(0,1fr)!important;
+  }
+}
+@media(max-width:650px){
+  .chat-shell{
+    grid-template-columns:1fr!important;
+    height:calc(100vh - 120px)!important;
+    min-height:520px!important;
+  }
+  .chat-composer{
+    grid-template-columns:40px minmax(0,1fr) 82px!important;
+    gap:7px!important;
+    padding:8px!important;
+  }
+  .chat-composer .chat-send-button{
+    width:82px!important;
+    min-width:82px!important;
+    font-size:11px!important;
+  }
+}
+
+/* Internal KEDO 5.51.9 — Messenger visual-only safe fix
+   IMPORTANT: CSS ONLY. No app.js changes. No backend changes.
+*/
+
+/* Main messenger shell */
+.chat-shell{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  border:1px solid #d7e2ea!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  background:#f8fafc!important;
+  box-shadow:0 5px 20px rgba(35,60,80,.06)!important;
+}
+
+.chat-window{
+  min-width:0!important;
+  min-height:0!important;
+  background:#eef3f7!important;
+}
+
+/* Header: user + three tools on one optical line */
+.chat-head{
+  min-height:64px!important;
+  height:64px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:10px 14px!important;
+  background:#fbfcfd!important;
+  border-bottom:1px solid #dce6ed!important;
+}
+
+.chat-head-actions{
+  margin-left:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:5px!important;
+  flex:0 0 auto!important;
+}
+
+.chat-head-actions button,
+.chat-head-tool{
+  width:32px!important;
+  height:32px!important;
+  min-width:32px!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d2dfe8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#60788b!important;
+  line-height:1!important;
+  font-size:14px!important;
+}
+
+.chat-head-actions button:hover,
+.chat-head-tool:hover,
+.chat-head-tool.active{
+  background:#f1f7fb!important;
+  border-color:#bfd4e2!important;
+  color:#236d9e!important;
+}
+
+/* Search bar remains hidden until existing JS opens it */
+.chat-findbar[hidden]{
+  display:none!important;
+}
+
+.chat-findbar{
+  min-height:46px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  padding:6px 12px!important;
+  background:#f7fafc!important;
+  border-bottom:1px solid #dfe7ed!important;
+}
+
+.chat-findbar input{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  height:34px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:7px 10px!important;
+  border:1px solid #d2dfe8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+.chat-findbar button{
+  width:32px!important;
+  height:32px!important;
+  min-width:32px!important;
+  padding:0!important;
+  margin:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d2dfe8!important;
+  border-radius:8px!important;
+  background:#fff!important;
+}
+
+/* Messages area */
+.chat-messages{
+  min-height:0!important;
+  background:#eef3f7!important;
+}
+
+/* Composer — exactly one aligned row */
+.chat-composer{
+  width:100%!important;
+  box-sizing:border-box!important;
+  min-height:76px!important;
+  margin:0!important;
+  padding:10px 12px!important;
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr) 96px!important;
+  grid-template-areas:"attach main send"!important;
+  align-items:center!important;
+  column-gap:9px!important;
+  row-gap:0!important;
+  background:#fbfcfd!important;
+  border-top:1px solid #dce6ed!important;
+}
+
+.chat-composer .chat-attach-wrap{
+  grid-area:attach!important;
+  width:42px!important;
+  height:42px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:center!important;
+}
+
+.chat-composer .chat-attach-button{
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  min-height:40px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d1e0e9!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  color:#2470a3!important;
+  font-size:20px!important;
+  line-height:1!important;
+}
+
+.chat-composer .chat-compose-main{
+  grid-area:main!important;
+  min-width:0!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-self:center!important;
+  gap:3px!important;
+}
+
+.chat-composer #chatInput{
+  width:100%!important;
+  min-width:0!important;
+  min-height:40px!important;
+  max-height:120px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:9px 12px!important;
+  border:1px solid #ccd9e3!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  font:inherit!important;
+  font-size:13px!important;
+  line-height:20px!important;
+  resize:none!important;
+}
+
+.chat-composer #chatInput:focus{
+  outline:none!important;
+  border-color:#91b5ce!important;
+  box-shadow:0 0 0 3px rgba(36,111,168,.08)!important;
+}
+
+.chat-composer .chat-compose-hint{
+  min-height:11px!important;
+  height:11px!important;
+  box-sizing:border-box!important;
+  margin:0 2px!important;
+  padding:0!important;
+  display:flex!important;
+  align-items:center!important;
+  line-height:11px!important;
+  font-size:9px!important;
+  color:#8796a4!important;
+}
+
+.chat-composer .chat-send-button{
+  grid-area:send!important;
+  width:96px!important;
+  min-width:96px!important;
+  height:40px!important;
+  min-height:40px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0 12px!important;
+  align-self:center!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:10px!important;
+}
+
+/* Old browser-like "load earlier" control: make it a KEDO pill */
+.chat-messages button,
+.chat-messages .load-more,
+.chat-messages .load-earlier,
+.chat-messages [data-action="load-more"]{
+  font:inherit!important;
+}
+
+.chat-messages .load-more,
+.chat-messages .load-earlier,
+.chat-messages [data-action="load-more"]{
+  display:block!important;
+  width:max-content!important;
+  max-width:calc(100% - 24px)!important;
+  margin:8px auto!important;
+  padding:7px 13px!important;
+  border:1px solid #d1e0e9!important;
+  border-radius:9px!important;
+  background:#f8fbfd!important;
+  color:#2872a5!important;
+  font-size:11px!important;
+  line-height:16px!important;
+  box-shadow:none!important;
+}
+
+/* Search result highlight used by existing JS */
+.kedo-chat-hit{
+  outline:2px solid rgba(36,111,168,.15)!important;
+  outline-offset:2px!important;
+  border-radius:8px!important;
+}
+
+/* Keep everything usable on narrow screens */
+@media(max-width:700px){
+  .chat-composer{
+    grid-template-columns:40px minmax(0,1fr) 84px!important;
+    column-gap:7px!important;
+    padding:8px!important;
+  }
+  .chat-composer .chat-send-button{
+    width:84px!important;
+    min-width:84px!important;
+  }
+}
+
+/* ---------- Header identity: single live status + marquee name ---------- */
+.user-menu-button .kedo-user-status{
+  animation:kedoHeaderStatusBlink 1.15s ease-in-out infinite!important;
+  transform-origin:center;
+}
+@keyframes kedoHeaderStatusBlink{
+  0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(67,209,122,.55)}
+  50%{opacity:.42;transform:scale(.82);box-shadow:0 0 0 5px rgba(67,209,122,0)}
+}
+.user-menu-button .kedo-user-text-viewport{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+}
+.user-menu-button .kedo-user-name{
+  display:inline-block!important;
+  width:max-content!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+}
+.user-menu-button.kedo-user-scrolling .kedo-user-name{
+  animation:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .user-menu-button .kedo-user-status{animation:none!important;opacity:1!important;transform:none!important;box-shadow:0 0 0 3px rgba(67,209,122,.12)!important}
+  .user-menu-button.kedo-user-scrolling .kedo-user-name{animation:none!important}
+}
+
+.user-menu-button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  overflow:hidden!important;
+  text-align:left!important;
+}
+.user-menu-button .kedo-user-status{
+  position:relative;
+  flex:0 0 8px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#43d17a;
+  box-shadow:0 0 0 0 rgba(67,209,122,.55);
+  will-change:box-shadow,opacity;
+}
+.user-menu-button .kedo-user-status::after{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  border:1px solid rgba(67,209,122,.38);
+  animation:kedoStatusPulse 1.8s ease-out infinite;
+  pointer-events:none;
+}
+.user-menu-button .kedo-user-text-viewport{
+  position:relative;
+  min-width:0;
+  flex:1 1 auto;
+  overflow:hidden;
+  white-space:nowrap;
+  display:block;
+}
+.user-menu-button.kedo-user-scrolling .kedo-user-text-viewport{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10px,#000 calc(100% - 10px),transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 10px,#000 calc(100% - 10px),transparent 100%);
+}
+.user-menu-button .kedo-user-name{
+  display:inline-block;
+  min-width:max-content;
+  will-change:transform;
+}
+.user-menu-button.kedo-user-scrolling .kedo-user-name{
+  animation:none!important;
+}
+.user-menu-button:hover.kedo-user-scrolling .kedo-user-name,
+.user-menu-button:focus-visible.kedo-user-scrolling .kedo-user-name{
+  animation:none!important;
+}
+@keyframes kedoStatusPulse{
+  0%{transform:scale(.55);opacity:.8}
+  70%{transform:scale(1.5);opacity:0}
+  100%{transform:scale(1.5);opacity:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .user-menu-button .kedo-user-status::after{animation:none}
+}
+
+
+/* v5.53.14 — audit journal opens as an internal-scrolling modal. */
+.admin-audit-launcher{
+  cursor:pointer!important;
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.admin-audit-launcher:hover,.admin-audit-launcher:focus-visible{
+  border-color:#b9cedd!important;
+  box-shadow:0 8px 24px rgba(31,55,75,.08)!important;
+  outline:none!important;
+}
+.admin-audit-launcher .admin-section-head{align-items:center!important}
+.audit-journal-overlay{z-index:1300!important;padding:20px!important}
+.audit-journal-modal{
+  width:min(980px,calc(100vw - 32px))!important;
+  height:min(86vh,820px)!important;
+  max-height:calc(100vh - 40px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  padding:18px!important;
+}
+.audit-journal-head{flex:0 0 auto!important;padding-bottom:10px!important}
+.audit-modal-filters{
+  flex:0 0 auto!important;
+  margin:4px 0 10px!important;
+  padding:0!important;
+  max-height:72px!important;
+  overflow:auto!important;
+}
+.audit-modal-list{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:2px 6px 8px 0!important;
+  scrollbar-color:#b8c5cf transparent!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:7px!important;
+}
+.audit-modal-list .audit-row{
+  flex:0 0 auto!important;
+  min-height:58px!important;
+}
+.audit-loading{padding:18px;color:#6f8295;text-align:center}
+.audit-journal-overlay .audit-details pre{max-width:min(700px,75vw);max-height:240px;overflow:auto}
+@media(max-width:700px){
+  .audit-journal-overlay{padding:10px!important}
+  .audit-journal-modal{width:calc(100vw - 20px)!important;height:calc(100vh - 20px)!important;max-height:none!important;padding:14px!important}
+}
+
+.recycle-item{display:flex;justify-content:space-between;gap:14px;align-items:center}.recycle-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.recycle-actions .danger-outline{white-space:nowrap}@media(max-width:760px){.recycle-item{align-items:flex-start;flex-direction:column}.recycle-actions{width:100%;justify-content:flex-start}}
+
+/* Internal KEDO 5.53.22 — stable FAQ + Audit modal layout. */
+html.kedo-audit-open,body.kedo-audit-open,
+html:has(.admin-faq-overlay),body:has(.admin-faq-overlay){overflow:hidden!important;overscroll-behavior:none!important}
+
+.admin-faq-overlay{position:fixed!important;inset:0!important;z-index:2147482000!important;overflow:hidden!important}
+.admin-faq-modal{width:min(1120px,96vw)!important;height:min(820px,92vh)!important;max-height:calc(100vh - 32px)!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+.admin-faq-layout{display:grid!important;grid-template-columns:220px minmax(0,1fr)!important;min-height:0!important;flex:1 1 auto!important;height:auto!important;overflow:hidden!important}
+.admin-faq-nav{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important}
+.admin-faq-content{min-width:0!important;min-height:0!important;height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important}
+.admin-faq-search{position:sticky!important;top:0!important;z-index:20!important;background:#fff!important;padding-bottom:12px!important}
+
+.audit-journal-overlay{position:fixed!important;inset:0!important;z-index:2147483000!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:20px!important;box-sizing:border-box!important}
+html body .audit-journal-overlay .audit-journal-modal{width:min(1180px,calc(100vw - 40px))!important;height:min(900px,calc(100vh - 40px))!important;max-height:calc(100vh - 40px)!important;display:flex!important;flex-direction:column!important;min-height:0!important;overflow:hidden!important;box-sizing:border-box!important;padding:24px!important}
+.audit-journal-head{flex:0 0 auto!important;min-width:0!important}
+.audit-modal-search{flex:0 0 auto!important;width:100%!important;margin:10px 0 8px!important;background:#fff!important;position:relative!important;z-index:20!important}
+.audit-modal-search input{display:block!important;width:100%!important;box-sizing:border-box!important;min-height:42px!important;padding:10px 12px!important;border:1px solid #cbd8e5!important;border-radius:9px!important;background:#fff!important;color:#20364f!important}
+.audit-modal-filters{flex:0 0 auto!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;min-height:36px!important;padding-bottom:3px!important;scrollbar-gutter:stable!important}
+.audit-modal-filters button{flex:0 0 auto!important;white-space:nowrap!important}
+.audit-modal-list{flex:1 1 auto!important;min-height:0!important;height:auto!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:4px 6px 8px 0!important}
+.audit-modal-list .audit-row{flex:0 0 auto!important}
+.audit-search-empty{padding:30px 15px!important;text-align:center!important}
+@media(max-width:760px){
+ html body .audit-journal-overlay .audit-journal-modal{width:calc(100vw - 16px)!important;height:calc(100vh - 16px)!important;max-height:none!important;padding:14px!important}
+ .admin-faq-modal{width:calc(100vw - 16px)!important;height:calc(100vh - 16px)!important;max-height:none!important}
+ .admin-faq-layout{grid-template-columns:1fr!important}
+ .admin-faq-nav{display:flex!important;gap:5px!important;overflow-x:auto!important;overflow-y:hidden!important;border-right:0!important;border-bottom:1px solid #e5edf3!important}
+ .admin-faq-nav button{width:auto!important;white-space:nowrap!important;margin:0!important}
+}
+
+/* ------------------------------------------------------------------
+   5.53.27 — Orders polished UI
+   ------------------------------------------------------------------ */
+.kedo-order-panel{
+  position:relative!important;
+  overflow:visible!important;
+  border:1px solid #d3e0eb!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%)!important;
+  box-shadow:0 10px 28px rgba(27,52,78,.07)!important;
+}
+.kedo-order-panel .kedo-form-panel-head.kedo-collapsible-head{
+  min-height:78px!important; padding:14px 18px!important; border-radius:17px 17px 0 0!important;
+  background:linear-gradient(135deg,#f8fbfe 0%,#ffffff 65%)!important;
+}
+.kedo-order-panel .kedo-form-icon{
+  width:42px!important;height:42px!important;border-radius:12px!important;
+  background:linear-gradient(135deg,#e6f2fa,#dcecf8)!important;
+  color:#116ca8!important; font-size:18px!important;
+  box-shadow:inset 0 0 0 1px rgba(23,105,170,.06)!important;
+}
+.kedo-order-panel .kedo-form-panel-head strong{font-size:18px!important;letter-spacing:-.01em!important}
+.kedo-order-panel .kedo-form-panel-head small{font-size:11px!important;max-width:800px!important;color:#7890a4!important}
+.kedo-order-panel .kedo-form-panel-body{padding:18px 18px 16px!important}
+.kedo-order-panel .kedo-form-intro{
+  margin:0 0 16px!important;padding:11px 13px!important;border:1px solid #e4edf4!important;
+  border-radius:11px!important;background:#f8fbfd!important;color:#5e7488!important;
+}
+.kedo-order-panel .row{gap:14px!important;margin-bottom:14px!important}
+.kedo-order-panel .row>div{min-width:0!important}
+.kedo-order-panel label{font-size:11px!important;font-weight:700!important;color:#3a566f!important;letter-spacing:.01em!important}
+.kedo-order-panel input{
+  height:44px!important; min-height:44px!important; border-radius:10px!important; border:1px solid #cad9e6!important;
+  background:#fff!important; box-shadow:inset 0 1px 1px rgba(27,52,78,.025)!important;
+  transition:border-color .16s ease,box-shadow .16s ease,background .16s ease!important;
+}
+.kedo-order-panel input:focus{
+  border-color:#6fa4cc!important; box-shadow:0 0 0 3px rgba(23,105,170,.11)!important; outline:none!important;
+}
+.order-field{position:relative!important}
+.order-field-icon{
+  position:absolute!important;left:12px;top:50%;transform:translateY(-50%);z-index:1;
+  color:#6f8ba1!important;font-size:15px!important;pointer-events:none!important
+}
+.order-date-field input{padding-left:36px!important}
+.order-file-picker{
+  position:relative!important;display:flex!important;align-items:center!important;gap:11px!important;
+  min-height:44px!important;padding:7px 11px!important;border:1px solid #cad9e6!important;border-radius:10px!important;
+  background:#fff!important;cursor:pointer!important;
+}
+.order-file-picker:hover{border-color:#6fa4cc!important;background:#fbfdff!important}
+.order-file-picker input[type=file]{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:0!important;cursor:pointer!important;padding:0!important;border:0!important;
+}
+.order-file-icon{
+  width:28px!important;height:30px!important;border-radius:8px!important;display:grid!important;place-items:center!important;
+  background:#edf5fb!important;color:#1769aa!important;font-size:9px!important;font-weight:900!important;letter-spacing:.04em!important;
+}
+.order-file-copy{display:grid!important;gap:1px!important;min-width:0!important}
+.order-file-copy strong{font-size:11px!important;color:#25425d!important}
+.order-file-copy small{font-size:9px!important;color:#7e91a3!important;white-space:nowrap!important}
+.order-file-name{margin-left:auto!important;max-width:34%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#8495a4!important;font-size:10px!important}
+.order-file-name.is-selected{color:#1769aa!important;font-weight:700!important}
+.order-recipient-box{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:13px!important;
+  margin-top:8px!important;padding:15px!important;border:1px solid #dfe9f1!important;border-radius:14px!important;
+  background:linear-gradient(180deg,#f9fbfd 0%,#ffffff 100%)!important;
+}
+.order-recipient-box>div{min-width:0!important}
+.order-recipient-box>div:first-child{
+  padding-bottom:4px!important;border-bottom:1px solid #e5edf4!important;
+}
+.order-recipient-box .recipient-dropdown-toggle{
+  min-height:46px!important;border-radius:11px!important;border-color:#cbd9e6!important;
+  background:#fff!important;font-size:12px!important;padding:11px 13px!important;
+}
+.order-recipient-box .recipient-dropdown.open .recipient-dropdown-toggle{border-color:#6fa4cc!important;box-shadow:0 0 0 3px rgba(23,105,170,.09)!important}
+.order-recipient-box .recipient-dropdown-menu{
+  z-index:10000!important;border-radius:12px!important;padding:8px!important;
+  box-shadow:0 18px 42px rgba(24,48,72,.18)!important;
+  border-color:#cbd9e6!important;max-height:340px!important;
+}
+.order-recipient-box .recipient-option{
+  display:flex!important;gap:9px!important;align-items:flex-start!important;padding:9px!important;margin:1px 0!important;
+  border-radius:8px!important;color:#334d65!important;font-size:11px!important;cursor:pointer!important;
+}
+.order-recipient-box .recipient-option:hover{background:#f1f7fb!important}
+.order-recipient-box .recipient-option input{height:16px!important;min-height:16px!important;width:16px!important;margin:1px 0 0!important}
+.order-group-scopes{display:grid!important;gap:9px!important}
+.order-group-scope-card{
+  position:relative!important;padding:12px!important;border:1px solid #dce7ef!important;border-radius:11px!important;
+  background:#fff!important;box-shadow:0 3px 10px rgba(27,52,78,.035)!important;
+}
+.order-group-scope-card strong{color:#24405b!important;font-size:12px!important}
+.order-group-scope-card .group-scope-grid{margin-top:10px!important}
+.order-submit-bar{
+  display:flex!important;justify-content:space-between!important;align-items:center!important;gap:14px!important;
+  margin-top:15px!important;padding:13px 14px!important;border-radius:13px!important;
+  border:1px solid #dce8f0!important;background:#f7fbfe!important;
+}
+.order-submit-copy{display:grid!important;gap:2px!important;min-width:0!important}
+.order-submit-copy strong{font-size:12px!important;color:#24415d!important}
+.order-submit-copy span{font-size:10px!important;color:#7a8ea1!important}
+.order-submit-button{
+  min-height:42px!important;padding:10px 16px!important;border-radius:10px!important;
+  box-shadow:0 7px 16px rgba(23,105,170,.17)!important;font-size:12px!important;
+}
+.order-submit-button span{font-size:14px!important;margin-right:3px!important}
+.kedo-order-panel #orderMsg{margin:9px 2px 0!important;font-size:11px!important}
+.kedo-order-panel + .card{
+  margin-top:16px!important;border-radius:16px!important;border-color:#d6e3ed!important;
+  box-shadow:0 8px 22px rgba(27,52,78,.045)!important;
+}
+.kedo-order-panel + .card .search{margin-bottom:12px!important;padding:1px!important}
+.kedo-order-panel + .card #orderList{padding-top:2px!important}
+@media(max-width:900px){
+  .order-submit-bar{align-items:flex-start!important;flex-direction:column!important}
+  .order-submit-button{width:100%!important}
+  .order-file-name{max-width:28%!important}
+}
+/* Internal KEDO 5.53.27 — Knowledge Base polish */
+.knowledge-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin:2px 0 16px;padding:22px 24px;border:1px solid #d8e4ee;border-radius:16px;background:linear-gradient(135deg,#f8fbfd 0%,#eef6fb 100%);box-shadow:0 10px 28px rgba(28,60,90,.06)}
+.knowledge-hero-copy{min-width:0}.knowledge-hero-copy .page-title{margin:3px 0 8px!important}.knowledge-hero-copy p{margin:0;color:#6c8093;font-size:13px;max-width:760px}.knowledge-hero-stats{flex:0 0 auto;min-width:110px;padding:12px 15px;border:1px solid #d5e4ef;border-radius:13px;background:#fff;text-align:center;box-shadow:0 5px 15px rgba(28,60,90,.05)}
+.knowledge-hero-count{display:block;font-size:26px;font-weight:800;line-height:1;color:#1769aa}.knowledge-hero-label{display:block;margin-top:4px;font-size:11px;color:#73879a}
+.knowledge-compose-card{padding:0!important;overflow:hidden}.knowledge-compose-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 22px;border-bottom:1px solid #e0eaf2;background:linear-gradient(180deg,#fbfdff,#f4f8fb)}.knowledge-compose-head h2{margin:2px 0 4px!important;font-size:21px!important;color:#173b62!important}.knowledge-compose-head p{margin:0;color:#74879a;font-size:12px}.knowledge-compose-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#e8f4fb;color:#1769aa;font-size:23px;font-weight:700}
+.knowledge-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 22px 0}.knowledge-form-grid label,.knowledge-form-full,.knowledge-access-grid label,.knowledge-file-grid label{display:grid;gap:7px}.knowledge-form-grid label>span,.knowledge-form-full>span,.knowledge-access-grid label>span,.knowledge-file-grid label>span{font-size:11px;font-weight:800;letter-spacing:.02em;color:#425c74}.knowledge-form-grid input,.knowledge-form-full textarea,.knowledge-access-grid select,.knowledge-file-grid select,.knowledge-file-input input{box-sizing:border-box;width:100%;min-height:42px;border:1px solid #cfdae5;border-radius:10px;background:#fff;color:#243d56;font:inherit;padding:10px 12px;outline:none;transition:border-color .16s,box-shadow .16s,background .16s}.knowledge-form-full{padding:14px 22px 0}.knowledge-form-full textarea{min-height:132px;resize:vertical;line-height:1.5}.knowledge-form-grid input:focus,.knowledge-form-full textarea:focus,.knowledge-access-grid select:focus,.knowledge-file-grid select:focus,.knowledge-file-input input:focus{border-color:#79a9cc;box-shadow:0 0 0 3px rgba(23,105,170,.10)}
+.knowledge-form-section{margin:16px 22px 0;padding:15px;border:1px solid #dbe6ee;border-radius:12px;background:#f8fbfd}.knowledge-section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.knowledge-section-head b{display:block;font-size:13px;color:#203a55}.knowledge-section-head span:not(.knowledge-step){display:block;margin-top:3px;font-size:11px;color:#75899d}.knowledge-step{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#e7f2fa;color:#1769aa;font-size:11px;font-weight:800}
+.knowledge-access-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:end}.knowledge-access-hint{min-height:42px;display:flex;align-items:center;padding:0 12px;border:1px dashed #cfdae5;border-radius:10px;color:#6d8092;font-size:12px;background:#fff}.knowledge-file-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.knowledge-file-input input{padding:7px 10px;background:#fff}.knowledge-compose-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px 20px}.knowledge-compose-footer p{margin:0;color:#a63b3b;font-size:12px}.knowledge-publish-btn{min-height:42px;padding:10px 16px!important;border-radius:10px!important;font-size:13px!important}.knowledge-publish-btn span{margin-left:8px;font-size:16px}
+.knowledge-library-card{padding:20px 22px!important;margin-top:16px!important}.knowledge-library-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:14px}.knowledge-library-head h2{margin:2px 0 4px!important}.knowledge-library-head p{margin:0;color:#74879a;font-size:12px}.knowledge-library-badge{padding:7px 10px;border:1px solid #d7e4ee;border-radius:999px;background:#f6fafc;color:#536a80;font-size:11px;font-weight:700}
+.knowledge-material-grid{display:block!important;column-count:2;column-gap:12px}.knowledge-item{display:inline-block;width:100%;margin:0 0 12px;padding:16px!important;border:1px solid #dce6ef;border-radius:13px;background:#fff;box-shadow:0 5px 14px rgba(28,60,90,.035);transition:border-color .15s,box-shadow .15s;break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;height:auto!important}.knowledge-item:hover{border-color:#c6d9e7;box-shadow:0 9px 20px rgba(28,60,90,.06)}.knowledge-item-top{display:flex;align-items:flex-start;gap:11px}.knowledge-item-icon{display:grid;place-items:center;flex:0 0 auto;width:38px;height:38px;border-radius:11px;background:#eaf5fb;color:#1769aa;font-size:17px}.knowledge-item-main{min-width:0;flex:1}.knowledge-item-title{font-size:14px;font-weight:800;color:#1c3958;line-height:1.3}.knowledge-item-meta{display:flex;align-items:center;gap:7px;margin-top:5px;color:#72869a;font-size:10px}.knowledge-item-meta i{font-style:normal;color:#b0bec9}.knowledge-access-btn{flex:0 0 auto;min-height:32px;padding:7px 10px!important;font-size:11px!important;border-radius:8px!important}.knowledge-item-content{margin:12px 0 0;color:#52697d;font-size:12px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.knowledge-attachments{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid #edf2f6}.knowledge-attachments-label{display:inline-flex;align-items:center;padding:4px 7px;border-radius:6px;background:#eef5f9;color:#526b80;font-size:10px;font-weight:800}.knowledge-attachments .kb-attachment{font-size:11px}
+.knowledge-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:150px!important;border:1px dashed #cfdae5!important;background:#fbfdff!important}.knowledge-empty-icon{font-size:30px;margin-bottom:3px}.knowledge-empty b{color:#24425f}.knowledge-empty span{font-size:12px;color:#7a8d9f}
+@media(max-width:900px){.knowledge-material-grid{column-count:1!important}.knowledge-access-grid,.knowledge-file-grid,.knowledge-form-grid{grid-template-columns:1fr}.knowledge-hero{align-items:flex-start;flex-direction:column}.knowledge-hero-stats{min-width:90px}.knowledge-compose-footer,.knowledge-library-head{align-items:flex-start;flex-direction:column}.knowledge-publish-btn{width:100%}}
+
+/* KEDO 5.53.32 — collapsed New Material panel */
+.knowledge-compose-card.kb-compose-collapsed{overflow:hidden;border-left:3px solid #1675b7;background:linear-gradient(180deg,#ffffff,#f8fbfe)}
+.knowledge-compose-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border:0;border-bottom:1px solid transparent;background:transparent;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.knowledge-compose-head:hover{background:linear-gradient(90deg,rgba(236,247,255,.72),rgba(255,255,255,0))}
+.knowledge-compose-head:focus-visible{outline:3px solid rgba(22,117,183,.16);outline-offset:-3px}
+.knowledge-compose-toggle{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:#eaf5fd;color:#0e6ea8;font-size:26px;font-weight:500;line-height:1;transition:transform .2s,background .2s,box-shadow .2s}
+.knowledge-compose-head:hover .knowledge-compose-toggle{background:#dff0fb;box-shadow:0 6px 18px rgba(15,89,138,.12)}
+.knowledge-compose-card.kb-compose-open .knowledge-compose-toggle{transform:rotate(45deg);background:#0f75b5;color:#fff;box-shadow:0 8px 20px rgba(15,89,138,.18)}
+.knowledge-compose-card.kb-compose-open .knowledge-compose-head{border-bottom-color:#dce7ef;background:#fbfdff}
+.knowledge-compose-body{padding:0 24px 24px;animation:kedoKnowledgeComposeIn .18s ease-out}
+@keyframes kedoKnowledgeComposeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.knowledge-compose-head{padding:18px}.knowledge-compose-body{padding:0 18px 18px}.knowledge-compose-toggle{width:38px;height:38px;font-size:22px}}
+
+.knowledge-new-badge{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;padding:5px 9px;border-radius:999px;background:#e8f4fb;color:#0d6ca7;font-size:10px;font-weight:800;letter-spacing:.06em}
+.knowledge-compose-card.kb-compose-collapsed .knowledge-compose-head h2{font-size:22px!important;margin:0 0 4px!important}
+.knowledge-compose-card.kb-compose-collapsed .knowledge-compose-head p{font-size:12px;line-height:1.45}
+/* Knowledge base folders */
+.kb-folder-navigation{margin:-3px 0 16px;padding:12px;border:1px solid #dce6ee;border-radius:13px;background:#f8fbfd}
+.kb-folder-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:10px}.kb-folder-crumbs button{border:0;background:transparent;color:#176fa8;font:inherit;font-size:11px;cursor:pointer;padding:4px}.kb-folder-crumbs span{color:#94a7b4}
+.kb-folder-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}.kb-folder-actions button{min-height:34px;padding:7px 10px!important;font-size:11px!important}
+.kb-folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}.kb-folder-card{position:relative;display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;min-width:0;padding:12px;border:1px solid #d8e4ec;border-radius:11px;background:#fff;text-align:left;color:#31566d;cursor:pointer}.kb-folder-card:hover{border-color:#8db5ca;box-shadow:0 6px 16px rgba(24,68,99,.08)}.kb-folder-icon{display:grid;place-items:center;width:40px;height:35px;border-radius:8px;background:#e7f2f9;color:#176fa8;font-size:19px}.kb-folder-card strong,.kb-folder-card small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.kb-folder-card strong{font-size:11px}.kb-folder-card small{margin-top:4px;color:#8192a2;font-size:9px}.kb-folder-edit{position:absolute;right:7px;top:7px;padding:2px 5px;border-radius:6px;background:#f1f6f9;color:#607f91;font-size:11px;cursor:pointer}.kb-folder-empty{grid-column:1/-1;padding:15px;border:1px dashed #cbd9e4;border-radius:10px;text-align:center;color:#7890a3;font-size:10px}
+.knowledge-filter-bar{grid-template-columns:minmax(0,1fr) minmax(150px,.35fr) minmax(150px,.35fr) auto!important;align-items:center}
+#kbLibraryFolder,#kbLibraryCategory{width:100%;min-height:42px;padding:9px 11px;border:1px solid #cfdce7;border-radius:12px;background:#fff;color:#203b58;font:inherit}
+.kb-folder-strip{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:-3px 0 16px;padding:8px 10px;border:1px solid #e1eaf1;border-radius:11px;background:#f8fbfd}
+.kb-folder-caption{margin-right:3px;color:#7890a2;font-size:10px;font-weight:800;letter-spacing:.03em}
+.kb-folder-chip,.kb-folder-more{height:29px;border:1px solid #d5e3eb;border-radius:8px;background:#fff;color:#41657b;font:inherit;font-size:10px;cursor:pointer}
+.kb-folder-chip{padding:0 9px}.kb-folder-chip:hover,.kb-folder-chip.active{border-color:#7caec8;background:#eaf5fa;color:#1c6a91}.kb-folder-more{width:27px;padding:0;color:#76909e}.kb-folder-more:hover{background:#edf6f9;color:#2d718d}
+@media(max-width:900px){.knowledge-filter-bar{grid-template-columns:1fr 1fr!important}.kb-folder-strip{align-items:flex-start}}
+@media(max-width:560px){.knowledge-filter-bar{grid-template-columns:1fr!important}}

@@ -1,0 +1,27 @@
+/* KEDO_MESSAGES_LAYOUT_RECOVERY_554 */
+html.kedoMxPage,html.kedoMxPage body{height:100%!important;min-height:100%!important;overflow:hidden!important}
+body.kedoMxPage{margin:0!important;background:#edf3f6!important;overscroll-behavior:none!important}
+body.kedoMxPage main{height:calc(100vh - 104px)!important;max-height:calc(100vh - 104px)!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;display:block!important}
+body.kedoMxPage footer,body.kedoMxPage .site-footer,body.kedoMxPage .footer{display:none!important}
+body.kedoMxPage .kedo-messenger{display:grid!important;grid-template-columns:300px minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;width:min(1180px,calc(100vw - 48px))!important;height:calc(100vh - 132px)!important;min-height:560px!important;max-height:740px!important;margin:8px auto 12px!important;padding:0!important;box-sizing:border-box!important;overflow:hidden!important;border:1px solid #d6e3e8!important;border-radius:18px!important;background:#fff!important;box-shadow:0 16px 38px rgba(26,65,84,.07)!important}
+body.kedoMxPage .kedo-messenger>.km-side{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;min-height:0!important;height:100%!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;background:#f8fafb!important;border-right:1px solid #e1eaee!important}
+body.kedoMxPage .kedo-messenger>.km-main{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;min-height:0!important;height:100%!important;overflow:hidden!important;display:block!important;background:#f3f7f9!important}
+body.kedoMxPage .km-side-head{flex:0 0 auto!important;padding:18px 16px 10px!important}
+body.kedoMxPage .km-search{flex:0 0 auto!important;padding:0 14px 9px!important}
+body.kedoMxPage .km-tabs,body.kedoMxPage .km-section{flex:0 0 auto!important}
+body.kedoMxPage .km-contacts{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important}
+body.kedoMxPage .km-chat{display:flex!important;flex-direction:column!important;width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important}
+body.kedoMxPage .km-head{flex:0 0 62px!important;height:62px!important;min-height:62px!important}
+body.kedoMxPage .km-search-bar{flex:0 0 36px!important}
+body.kedoMxPage .km-content{position:relative!important;display:flex!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;min-height:0!important;height:auto!important;overflow:hidden!important}
+body.kedoMxPage .km-messages{flex:1 1 auto!important;width:100%!important;min-width:0!important;min-height:0!important;height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;box-sizing:border-box!important}
+body.kedoMxPage .km-row{display:flex!important;width:100%!important;min-height:0!important;margin:3px 0!important;float:none!important;clear:both!important;position:relative!important;transform:none!important}
+body.kedoMxPage .km-row.other{justify-content:flex-start!important}
+body.kedoMxPage .km-row.own{justify-content:flex-end!important}
+body.kedoMxPage .km-bubble{position:relative!important;float:none!important;clear:none!important;display:block!important;width:auto!important;max-width:min(70%,660px)!important;min-width:55px!important;height:auto!important;min-height:0!important;box-sizing:border-box!important;overflow:visible!important}
+body.kedoMxPage .km-meta,body.kedoMxPage .km-rx-line{position:static!important;float:none!important;clear:both!important;transform:none!important}
+body.kedoMxPage .km-meta{width:100%!important}
+body.kedoMxPage .km-rx-line{display:flex!important;flex-wrap:wrap!important;gap:4px!important}
+body.kedoMxPage .km-composer{flex:0 0 auto!important;width:100%!important;box-sizing:border-box!important;position:relative!important;z-index:5!important}
+@media(max-width:920px){body.kedoMxPage .kedo-messenger{width:calc(100vw - 24px)!important;grid-template-columns:270px minmax(0,1fr)!important}body.kedoMxPage .km-bubble{max-width:76%!important}}
+@media(max-width:700px){body.kedoMxPage main{height:100vh!important;max-height:100vh!important}body.kedoMxPage .kedo-messenger{width:100%!important;height:100vh!important;max-height:100vh!important;min-height:0!important;margin:0!important;border-radius:0!important;grid-template-columns:1fr!important}body.kedoMxPage .km-side{display:none!important}body.kedoMxPage .km-main{grid-column:1!important}body.kedoMxPage .km-bubble{max-width:88%!important}}

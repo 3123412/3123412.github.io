@@ -1,0 +1,240 @@
+/* Portal theme 5.53.13 — blue corporate */
+
+:root{
+  --kedo-bg:#e6edf5;
+  --kedo-surface:#ffffff;
+  --kedo-surface-soft:#f2f6fb;
+  --kedo-border:#cfdceb;
+  --kedo-border-strong:#b4c7db;
+  --kedo-text:#1a2a3a;
+  --kedo-heading:#0d2137;
+  --kedo-muted:#6a7f94;
+  --kedo-primary:#1a5f96;
+  --kedo-primary-hover:#154e7c;
+  --kedo-accent:#2b7bb5;
+  --kedo-success:#1f6b45;
+  --kedo-danger:#a94442;
+  --kedo-radius:8px;
+  --kedo-shadow:0 1px 3px rgba(13,33,55,.06);
+}
+
+html,body{
+  background:
+    radial-gradient(ellipse 60% 40% at 0% 0%, rgba(43,123,181,.10), transparent 50%),
+    linear-gradient(180deg,#eaf0f6,#dde6f0)!important;
+  color:var(--kedo-text)!important;
+  font-family:"Manrope","Segoe UI",sans-serif!important;
+}
+
+.top{
+  background:#0d2137!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.04)!important;
+  border-bottom:1px solid #081628!important;
+}
+.top .secondary,
+.user-menu-button,
+.global-search-button,
+.notification-button{
+  border-radius:8px!important;
+  border-color:rgba(255,255,255,.22)!important;
+  background:rgba(255,255,255,.1)!important;
+  color:#fff!important;
+}
+.top .secondary:hover,
+.user-menu-button:hover,
+.global-search-button:hover,
+.notification-button:hover{
+  background:rgba(255,255,255,.18)!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.34)!important;
+}
+header.top #logout,
+.top #logout.secondary{
+  color:#fff!important;
+  background:rgba(255,255,255,.12)!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  font-weight:650!important;
+}
+header.top #logout:hover,
+.top #logout.secondary:hover{
+  color:#fff!important;
+  background:rgba(255,255,255,.22)!important;
+}
+.nav{
+  background:rgba(255,255,255,.82)!important;
+  border:1px solid var(--kedo-border)!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+}
+.nav button{color:#3d556c!important}
+.nav button:hover{background:#eef4fa!important;color:#0d2137!important}
+.nav button.active{
+  background:#1a5f96!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.page-title{
+  color:var(--kedo-heading)!important;
+  letter-spacing:-.03em!important;
+  font-weight:800!important;
+}
+.card,.stat,.admin-stat,.inbox-card,.home-metric,.home-action-row{
+  background:var(--kedo-surface)!important;
+  border:1px solid var(--kedo-border)!important;
+  border-radius:10px!important;
+  box-shadow:var(--kedo-shadow)!important;
+}
+.primary{
+  background:var(--kedo-primary)!important;
+  border-color:var(--kedo-primary)!important;
+  color:#fff!important;
+  border-radius:8px!important;
+}
+.primary:hover{background:var(--kedo-primary-hover)!important}
+.secondary{
+  background:#fff!important;
+  border:1px solid var(--kedo-border)!important;
+  border-radius:8px!important;
+  color:#24384c!important;
+}
+.login-page{
+  background:
+    radial-gradient(ellipse 80% 55% at 50% -10%, rgba(255,122,24,.18), transparent 52%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(26,95,150,.16), transparent 55%),
+    linear-gradient(180deg,#e8eef6 0%,#d5e0ec 100%)!important;
+  font-family:"Manrope",Segoe UI,sans-serif!important;
+}
+.login-card{
+  width:min(420px,94vw)!important;
+  border:1px solid #c5d5e6!important;
+  border-radius:16px!important;
+  box-shadow:0 22px 50px rgba(13,33,55,.14)!important;
+  background:#fff!important;
+  padding:34px 32px 28px!important;
+}
+.login-brand{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+  gap:14px!important;
+  margin-bottom:26px!important;
+}
+.login-brand img{
+  width:108px!important;
+  height:108px!important;
+  object-fit:contain!important;
+  border-radius:18px!important;
+  box-shadow:0 10px 28px rgba(20,45,70,.14)!important;
+  background:#fff!important;
+  image-rendering:auto!important;
+}
+.login-brand h1{
+  margin:0!important;
+  color:#0d2137!important;
+  letter-spacing:-.03em!important;
+  font-size:26px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+}
+.login-brand p{
+  margin:6px 0 0!important;
+  color:#5a7085!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+  max-width:28ch!important;
+}
+.login-card label{
+  display:block!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  color:#3d556c!important;
+  margin:0 0 2px!important;
+  letter-spacing:.02em!important;
+}
+.login-card input{
+  width:100%!important;
+  padding:12px 13px!important;
+  margin:6px 0 14px!important;
+  border:1px solid #c5d5e6!important;
+  border-radius:10px!important;
+  background:#f8fafc!important;
+  color:#0d2137!important;
+  outline:none!important;
+  transition:border-color .15s ease, box-shadow .15s ease, background .15s ease!important;
+}
+.login-card input:focus{
+  border-color:#5b93c2!important;
+  background:#fff!important;
+  box-shadow:0 0 0 3px rgba(26,95,150,.14)!important;
+}
+.login-card .primary{
+  width:100%!important;
+  min-height:44px!important;
+  margin-top:4px!important;
+  border-radius:10px!important;
+  font-weight:750!important;
+  font-size:15px!important;
+}
+.login-request-sep{
+  margin:18px 0 10px!important;
+  color:#8a97a6!important;
+}
+.login-request-button{
+  width:100%!important;
+  min-height:42px!important;
+  border-radius:10px!important;
+}
+.eyebrow{color:#6a7f94!important}
+button:hover:not(:disabled):not(#userCaption){transform:none!important}
+
+.footer{color:#6a7f94!important}
+input:focus,select:focus,textarea:focus{
+  border-color:#5b93c2!important;
+  box-shadow:0 0 0 3px rgba(26,95,150,.12)!important;
+}
+
+/* Fast page transitions */
+#main,main#main,main{
+  transition:opacity .12s ease, transform .16s ease;
+  will-change:opacity, transform;
+}
+#main.kedo-page-out,main.kedo-page-out{
+  opacity:.35;
+  transform:translateY(4px);
+  pointer-events:none;
+}
+#main.kedo-page-in,main.kedo-page-in{
+  animation:kedoPageIn .12s ease both;
+}
+@keyframes kedoPageIn{
+  from{opacity:.55}
+  to{opacity:1}
+}
+.kedo-page-loading{
+  min-height:220px;
+  display:grid;
+  place-items:center;
+  gap:10px;
+  color:#6a7f94;
+  font-size:13px;
+  font-weight:600;
+}
+.kedo-page-spinner{
+  width:22px;height:22px;
+  border:2px solid #c5d5e6;
+  border-top-color:#1a5f96;
+  border-radius:50%;
+  animation:kedoSpin .55s linear infinite;
+}
+@keyframes kedoSpin{to{transform:rotate(360deg)}}
+.nav button{
+  transition:background-color .12s ease,color .12s ease,box-shadow .12s ease!important;
+}
+.nav button:active{transform:scale(.98)!important}
+html body button:hover:not(:disabled):not(#userCaption),
+html body .nav button:hover,
+html body .primary:hover,
+html body .secondary:hover{
+  transform:none!important;
+}
