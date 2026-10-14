@@ -129,6 +129,7 @@
   .hero-bottom .button { margin-top: 20px; }
   .hero-proof { align-self: flex-start; width: 92%; margin-right: 8px; padding: 12px 12px 48px; }
   .hero-detail { right: -9px; bottom: 12px; border-width: 6px; }
+  .hero-detail { display: none; }
   .hero-proof span { left: 16px; bottom: 14px; font-size: 14px; }
   .hero-proof b { right: 14px; bottom: 12px; }
   .projects { padding-top: 38px; }
