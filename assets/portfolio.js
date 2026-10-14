@@ -11,11 +11,11 @@ function featureMarkup(project) {
 }
 
 function botMarkup(project) {
-  return `<article class="bot-project" data-category="bots"><h3 class="motion">${project.title}</h3><p class="project-kind">${project.kind}</p><p class="motion">${project.task}</p><details><summary>Как работает</summary><p>${project.solution}</p><ol class="flow">${project.flow.map(step => `<li>${step}</li>`).join('')}</ol><p class="flow-caption">Описание выполненной работы. Данные и интерфейс заказчика не публикуются.</p></details></article>`;
+  return `<article class="bot-project project-${project.id}" data-category="bots"><h3 class="motion">${project.title}</h3><p class="project-kind">${project.kind}</p><p class="motion">${project.task}</p><ol class="flow">${project.flow.map(step => `<li>${step}</li>`).join('')}</ol></article>`;
 }
 
 document.querySelector('#project-list').innerHTML = featureMarkup(projects[0])
-  + `<div class="bot-work">${projects.filter(project => project.category === 'bots').map(botMarkup).join('')}</div>`
+  + `<section class="bot-work" aria-labelledby="bot-work-title"><div class="bot-heading"><h3 id="bot-work-title">Боты и интеграции</h3><p>Четыре проекта: Telegram, API и внешние сервисы собраны в понятные процессы.</p></div>${projects.filter(project => project.category === 'bots').map(botMarkup).join('')}<p class="bot-note">Показаны реальные сценарии. Интерфейсы заказчиков не публикуются.</p></section>`
   + featureMarkup(projects.at(-1));
 
 document.querySelector('#review-list').innerHTML = testimonials.map(review => `<figure class="review"><blockquote class="motion">${review.text}</blockquote><figcaption><span class="review-name">${review.name}</span><br><time datetime="${review.datetime}">${review.date}</time> · Авито<br>Оценка: 5 из 5. Сделка состоялась</figcaption></figure>`).join('');
